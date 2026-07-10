@@ -15,7 +15,10 @@ class ProjectsSection extends StatelessComponent {
     'playstore': 'Play Store',
     'appstore': 'App Store',
     'github': 'GitHub',
+    'demo': 'Live Demo',
   };
+
+  static const _buttonLabels = {'github': 'CODE', 'demo': 'TRY'};
 
   static const _platformIcons = {
     'iOS': 'apple',
@@ -60,7 +63,7 @@ class ProjectsSection extends StatelessComponent {
           ]),
           if (primary != null)
             a(classes: 'get', href: primary.value, target: .blank, [
-              .text(primary.key == 'github' ? 'CODE' : 'GET'),
+              .text(_buttonLabels[primary.key] ?? 'GET'),
             ]),
         ]),
         if (featured) div(classes: 'md proj-body', [RawText(proj.bodyHtml)]),
