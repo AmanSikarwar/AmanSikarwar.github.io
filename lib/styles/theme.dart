@@ -1,21 +1,21 @@
 import 'package:jaspr/dom.dart';
 
-/// Design tokens. Dart constants over CSS variables: type-safe, zero indirection.
+/// Design tokens as CSS custom properties so the theme can switch at runtime.
+/// Values live in the `_dark`/`_light` maps below; components reference var().
 abstract final class T {
-  // Palette — dusk: near-black plum ink, warm surfaces, apricot→rose sunset accent.
-  static const bg = Color('#100C13');
-  static const surface = Color('#1A1420');
-  static const surfaceRaised = Color('#241B2C');
-  static const line = Color('#33263D');
-  static const text = Color('#F3EDE9');
-  static const muted = Color('#B0A3AC');
-  static const faint = Color('#7D6F7C');
-  static const accent = Color('#FFA96B');
-  static const accent2 = Color('#FF7A9C');
-  static const amber = Color('#F5A623');
+  // Palette — dusk (dark) / daybreak (light): warm plum ink, sunset accent.
+  static const bg = Color('var(--bg)');
+  static const surface = Color('var(--surface)');
+  static const surfaceRaised = Color('var(--surface-raised)');
+  static const line = Color('var(--line)');
+  static const text = Color('var(--text)');
+  static const muted = Color('var(--muted)');
+  static const faint = Color('var(--faint)');
+  static const accent = Color('var(--accent)');
+  static const accent2 = Color('var(--accent2)');
 
   /// Raw CSS gradient reused across components.
-  static const gradient = 'linear-gradient(135deg, #FFA96B 0%, #FF7A9C 100%)';
+  static const gradient = 'var(--gradient)';
 
   // Type. Body is the native platform stack — the site renders in SF Pro on
   // Apple devices and Roboto on Android, like a native app would.
@@ -33,14 +33,65 @@ abstract final class T {
   static const maxWidth = 1120;
 }
 
+// Dusk (default).
+const _dark = {
+  'color-scheme': 'dark',
+  '--bg': '#100C13',
+  '--surface': '#1A1420',
+  '--surface-raised': '#241B2C',
+  '--line': '#33263D',
+  '--line-soft': '#33263D59',
+  '--text': '#F3EDE9',
+  '--muted': '#B0A3AC',
+  '--faint': '#7D6F7C',
+  '--accent': '#FFA96B',
+  '--accent2': '#FF7A9C',
+  '--gradient': 'linear-gradient(135deg, #FFA96B 0%, #FF7A9C 100%)',
+  '--glass': '#1A142066',
+  '--glass-strong': '#1A1420CC',
+  '--nav-bg': '#100C13B8',
+  '--chip': '#241B2C88',
+  '--ticker-bg': '#120D18',
+  '--shadow': '#00000055',
+};
+
+// Daybreak: warm porcelain counterpart, deeper accents for contrast.
+const _light = {
+  'color-scheme': 'light',
+  '--bg': '#FAF5F0',
+  '--surface': '#FFFFFF',
+  '--surface-raised': '#FFFFFF',
+  '--line': '#E5D8D0',
+  '--line-soft': '#E5D8D0AA',
+  '--text': '#2A1F27',
+  '--muted': '#6E5F6B',
+  '--faint': '#9C8D98',
+  '--accent': '#D06B33',
+  '--accent2': '#D64277',
+  '--gradient': 'linear-gradient(135deg, #F2934F 0%, #E85D87 100%)',
+  '--glass': '#FFFFFF8C',
+  '--glass-strong': '#FFFFFFE0',
+  '--nav-bg': '#FAF5F0C9',
+  '--chip': '#F3E9E2',
+  '--ticker-bg': '#F4ECE5',
+  '--shadow': '#3A241A1A',
+};
+
 @css
 List<StyleRule> get globalStyles => [
+  // Theme variables: dark by default, light when the system asks for it
+  // (and no explicit choice was made), or when the toggle sets data-theme.
+  css(':root').styles(raw: _dark),
+  css(':root[data-theme="light"]').styles(raw: _light),
+  css.media(.raw('(prefers-color-scheme: light)'), [
+    css(':root:not([data-theme])').styles(raw: _light),
+  ]),
   css('*, *::before, *::after').styles(
     margin: .zero,
     boxSizing: .borderBox,
   ),
   css('html').styles(
-    raw: {'scroll-behavior': 'smooth', 'color-scheme': 'dark'},
+    raw: {'scroll-behavior': 'smooth'},
   ),
   css('body').styles(
     minHeight: 100.vh,
@@ -106,7 +157,7 @@ List<StyleRule> get globalStyles => [
     css('&').styles(
       border: .all(color: T.line, width: 1.px),
       color: T.text,
-      backgroundColor: Color('#1A142088'),
+      backgroundColor: Color('var(--glass)'),
     ),
     css('&:hover').styles(
       border: .all(color: Color('#FFA96B88'), width: 1.px),

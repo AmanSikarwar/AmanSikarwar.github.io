@@ -69,12 +69,12 @@ class ExperienceSection extends StatelessComponent {
           border: .all(color: T.line, width: 1.px),
           radius: .circular(20.px),
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
-          backgroundColor: Color('#1A142066'),
+          backgroundColor: Color('var(--glass)'),
         ),
         css('&:hover').styles(
           border: .all(color: Color('#FFA96B55'), width: 1.px),
           transform: .translate(y: (-4).px),
-          raw: {'box-shadow': '0 18px 44px #00000055'},
+          raw: {'box-shadow': '0 18px 44px var(--shadow)'},
         ),
       ]),
       css('.xp-top').styles(
@@ -119,7 +119,7 @@ class ExperienceSection extends StatelessComponent {
       color: T.muted,
       fontFamily: T.mono,
       fontSize: 0.75.rem,
-      backgroundColor: Color('#241B2C88'),
+      backgroundColor: Color('var(--chip)'),
     ),
     css('.chip:hover').styles(
       border: .all(color: Color('#FF7A9C66'), width: 1.px),

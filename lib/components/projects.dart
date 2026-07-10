@@ -111,7 +111,7 @@ class ProjectsSection extends StatelessComponent {
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
           flexDirection: .column,
           gap: .all(1.2.rem),
-          backgroundColor: Color('#1A142066'),
+          backgroundColor: Color('var(--glass)'),
         ),
         css('&::before').styles(
           content: '',
@@ -125,7 +125,7 @@ class ProjectsSection extends StatelessComponent {
           transform: .translate(y: (-6).px),
           raw: {
             'border-color': 'color-mix(in srgb, var(--pa) 45%, transparent)',
-            'box-shadow': '0 22px 48px #00000055, 0 0 40px color-mix(in srgb, var(--pa) 12%, transparent)',
+            'box-shadow': '0 22px 48px var(--shadow), 0 0 40px color-mix(in srgb, var(--pa) 12%, transparent)',
           },
         ),
         css('&:hover::before').styles(

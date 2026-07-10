@@ -71,7 +71,7 @@ class About extends StatelessComponent {
           border: .all(color: T.line, width: 1.px),
           radius: .circular(18.px),
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
-          backgroundColor: Color('#1A142066'),
+          backgroundColor: Color('var(--glass)'),
         ),
         css('&:hover').styles(
           border: .all(color: Color('#FFA96B55'), width: 1.px),

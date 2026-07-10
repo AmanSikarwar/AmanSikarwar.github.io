@@ -2,6 +2,7 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
 import '../styles/theme.dart';
+import 'icons.dart';
 
 class Nav extends StatelessComponent {
   const Nav({super.key});
@@ -20,6 +21,10 @@ class Nav extends StatelessComponent {
           for (final l in _links) a(classes: 'nav-link', href: '#$l', [.text(l)]),
         ]),
         a(classes: 'nav-cta', href: '#contact', [.text('Get in touch')]),
+        button(classes: 'theme-toggle', attributes: {'aria-label': 'Switch theme'}, [
+          span(classes: 'tt-sun', [const Icon('sun', size: 17)]),
+          span(classes: 'tt-moon', [const Icon('moon', size: 17)]),
+        ]),
         button(classes: 'nav-burger', attributes: {'aria-label': 'Menu'}, [
           span([]),
           span([]),
@@ -39,9 +44,9 @@ class Nav extends StatelessComponent {
       css('&').styles(
         position: .fixed(top: 0.px, left: 0.px, right: 0.px),
         zIndex: ZIndex(100),
-        border: .only(bottom: BorderSide.solid(color: Color('#33263D66'), width: 1.px)),
+        border: .only(bottom: BorderSide.solid(color: Color('var(--line-soft)'), width: 1.px)),
         backdropFilter: .blur(16.px),
-        backgroundColor: Color('#100C13B8'),
+        backgroundColor: Color('var(--nav-bg)'),
       ),
       css('.nav-in').styles(
         display: .flex,
@@ -103,7 +108,7 @@ class Nav extends StatelessComponent {
           transition: Transition('all', duration: 250.ms, curve: .easeOut),
           fontSize: 0.86.rem,
           fontWeight: .w600,
-          backgroundColor: Color('#1A1420CC'),
+          backgroundColor: Color('var(--glass-strong)'),
         ),
         css('&:hover').styles(
           border: .all(color: Color('#FFA96B88'), width: 1.px),
@@ -117,6 +122,35 @@ class Nav extends StatelessComponent {
         color: T.text,
         raw: {'background-size': '100% 2px'},
       ),
+      css('.theme-toggle', [
+        css('&').styles(
+          display: .flex,
+          width: 36.px,
+          height: 36.px,
+          border: .all(color: T.line, width: 1.px),
+          radius: .circular(11.px),
+          cursor: .pointer,
+          transition: Transition('all', duration: 250.ms, curve: .easeOut),
+          justifyContent: .center,
+          alignItems: .center,
+          flex: .none,
+          color: T.muted,
+          backgroundColor: Color('var(--glass-strong)'),
+        ),
+        css('&:hover').styles(
+          border: .all(color: Color('#FFA96B88'), width: 1.px),
+          color: T.text,
+        ),
+        css('&:active').styles(
+          transform: .scale(0.9),
+        ),
+        css('span').styles(
+          display: .flex,
+        ),
+        css('.tt-moon').styles(
+          display: .none,
+        ),
+      ]),
       css('.nav-burger', [
         css('&').styles(
           display: .none,
@@ -146,16 +180,23 @@ class Nav extends StatelessComponent {
         ),
         css('a').styles(
           padding: .symmetric(vertical: 0.9.rem, horizontal: 1.5.rem),
-          border: .only(top: BorderSide.solid(color: Color('#33263D44'), width: 1.px)),
+          border: .only(top: BorderSide.solid(color: Color('var(--line-soft)'), width: 1.px)),
           color: T.muted,
           fontFamily: T.mono,
           fontSize: 0.95.rem,
         ),
         css('a:hover').styles(
           color: T.text,
-          backgroundColor: Color('#1A142088'),
+          backgroundColor: Color('var(--glass)'),
         ),
       ]),
+    ]),
+    // The toggle shows the theme you'd switch to: sun in dark, moon in light.
+    css(':root[data-theme="light"] .theme-toggle .tt-sun').styles(display: .none),
+    css(':root[data-theme="light"] .theme-toggle .tt-moon').styles(display: .flex),
+    css.media(.raw('(prefers-color-scheme: light)'), [
+      css(':root:not([data-theme]) .theme-toggle .tt-sun').styles(display: .none),
+      css(':root:not([data-theme]) .theme-toggle .tt-moon').styles(display: .flex),
     ]),
     // Open state (html.menu-open toggled by the Interactions island).
     css('.menu-open .nav-menu').styles(

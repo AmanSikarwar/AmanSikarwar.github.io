@@ -84,7 +84,7 @@ class Contact extends StatelessComponent {
   static List<StyleRule> get styles => [
     css('.contact', [
       css('&').styles(
-        border: .only(top: BorderSide.solid(color: Color('#33263D66'), width: 1.px)),
+        border: .only(top: BorderSide.solid(color: Color('var(--line-soft)'), width: 1.px)),
         raw: {
           'background':
               'radial-gradient(60% 80% at 50% 100%, #FFA96B14 0%, transparent 70%), radial-gradient(40% 60% at 80% 100%, #FF7A9C10 0%, transparent 70%)',
@@ -146,7 +146,7 @@ class Contact extends StatelessComponent {
           color: T.text,
           fontFamily: T.body,
           fontSize: 0.95.rem,
-          backgroundColor: Color('#1A1420AA'),
+          backgroundColor: Color('var(--glass-strong)'),
         ),
         css('textarea').styles(
           raw: {'resize': 'vertical', 'min-height': '7rem'},

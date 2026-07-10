@@ -27,9 +27,21 @@ void main() {
       'og:title': _title,
       'og:description': _description,
       'og:type': 'website',
-      'theme-color': '#100C13',
     },
     head: [
+      // Apply a stored theme choice before first paint (no flash of wrong theme).
+      script(
+        content: "try{var t=localStorage.getItem('theme');"
+            "if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}",
+      ),
+      .element(
+        tag: 'meta',
+        attributes: {'name': 'theme-color', 'content': '#100C13', 'media': '(prefers-color-scheme: dark)'},
+      ),
+      .element(
+        tag: 'meta',
+        attributes: {'name': 'theme-color', 'content': '#FAF5F0', 'media': '(prefers-color-scheme: light)'},
+      ),
       link(rel: 'icon', type: 'image/svg+xml', href: 'icon.svg'),
       link(rel: 'preconnect', href: 'https://fonts.googleapis.com'),
       link(rel: 'preconnect', href: 'https://fonts.gstatic.com', attributes: {'crossorigin': ''}),

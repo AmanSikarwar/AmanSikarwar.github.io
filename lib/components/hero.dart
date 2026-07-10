@@ -68,7 +68,7 @@ class Hero extends StatelessComponent {
         position: .relative(),
         overflow: .hidden,
         raw: {
-          'background-image': 'radial-gradient(circle, #33263D55 1px, transparent 1px)',
+          'background-image': 'radial-gradient(circle, var(--line-soft) 1px, transparent 1px)',
           'background-size': '34px 34px',
         },
       ),
@@ -118,7 +118,7 @@ class Hero extends StatelessComponent {
           color: T.muted,
           fontFamily: T.mono,
           fontSize: 0.78.rem,
-          backgroundColor: Color('#1A142088'),
+          backgroundColor: Color('var(--glass)'),
         ),
         css('.pill-dot').styles(
           width: 8.px,
@@ -179,7 +179,7 @@ class Hero extends StatelessComponent {
           justifyContent: .center,
           alignItems: .center,
           color: T.muted,
-          backgroundColor: Color('#1A142088'),
+          backgroundColor: Color('var(--glass)'),
         ),
         css('&:hover').styles(
           border: .all(color: Color('#FFA96B88'), width: 1.px),

@@ -77,6 +77,19 @@ class _InteractionsState extends State<Interactions> {
       });
     }
 
+    // Theme toggle: explicit choice wins over system preference and persists.
+    final themeBtn = doc.querySelector('.theme-toggle');
+    if (themeBtn != null) {
+      web.EventStreamProviders.clickEvent.forTarget(themeBtn).listen((_) {
+        final stored = root.getAttribute('data-theme');
+        final isLight = stored == 'light' ||
+            (stored == null && web.window.matchMedia('(prefers-color-scheme: light)').matches);
+        final next = isLight ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        web.window.localStorage.setItem('theme', next);
+      });
+    }
+
     // Contact form: submit via fetch and show inline status instead of
     // navigating away. Plain HTML POST still works if this never runs.
     final formEl = doc.querySelector('form.cform') as web.HTMLFormElement?;

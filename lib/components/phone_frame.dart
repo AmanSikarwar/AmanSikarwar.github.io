@@ -123,9 +123,17 @@ class PhoneFrame extends StatelessComponent {
       '85%, 100%': Styles(raw: {'transform': 'translateX(230%) skewX(-18deg)'}),
     }),
     css('.phone-scene', [
+      // The phone is a device: its screen stays dark in both site themes.
       css('&').styles(
         position: .relative(),
-        raw: {'perspective': '1400px'},
+        raw: {
+          'perspective': '1400px',
+          '--bg': '#100C13',
+          '--text': '#F3EDE9',
+          '--muted': '#B0A3AC',
+          '--faint': '#7D6F7C',
+          '--line': '#33263D',
+        },
       ),
       css('.app-img').styles(
         width: 100.percent,
