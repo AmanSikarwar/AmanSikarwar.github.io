@@ -47,6 +47,7 @@ class ProjectsSection extends StatelessComponent {
     final primary = proj.links.entries.firstOrNull;
 
     return article(
+      id: proj.slug,
       classes: 'proj reveal${featured ? '' : ' proj-small'}',
       styles: Styles(raw: {'--pa': proj.accent}),
       [

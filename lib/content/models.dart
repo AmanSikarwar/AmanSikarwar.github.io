@@ -85,6 +85,10 @@ class Project {
   /// Relative path to the real app icon (under web/); letter tile if null.
   final String? icon;
   final String bodyHtml;
+
+  /// Anchor id of this project's card, e.g. "syncubator-control".
+  String get slug =>
+      title.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '-').replaceAll(RegExp(r'^-+|-+$'), '');
 }
 
 class Contribution {

@@ -114,9 +114,9 @@ List<StyleRule> get globalStyles => [
       backgroundColor: T.surface,
     ),
   ]),
-  // Anchored sections stop below the fixed nav.
-  css('section[id], footer[id]').styles(
-    raw: {'scroll-margin-top': '80px'},
+  // Anchored sections and project cards stop below the fixed nav.
+  css('section[id], footer[id], article[id]').styles(
+    raw: {'scroll-margin-top': '96px'},
   ),
   // Scroll reveal. Hidden state only applies once JS confirms it's running,
   // so no-JS visitors (and search bots) see full content.

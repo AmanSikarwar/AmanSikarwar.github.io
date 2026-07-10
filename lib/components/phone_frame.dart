@@ -3,6 +3,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../content/models.dart';
 import '../styles/theme.dart';
+import 'icons.dart';
 
 /// The hero's signature: a phone whose screen is a live "home screen" of
 /// Aman's apps, with push notifications cycling in. Pure HTML/CSS — no JS.
@@ -12,16 +13,21 @@ class PhoneFrame extends StatelessComponent {
   final List<Project> projects;
   final List<({String value, String label})> stats;
 
+  // System apps for the dock, like a real phone.
+  static const _dockApps = [
+    (name: 'phone', bg: 'linear-gradient(145deg, #4CDE6A, #23B94B)', fg: '#FFFFFF'),
+    (name: 'message', bg: 'linear-gradient(145deg, #4CDE6A, #23B94B)', fg: '#FFFFFF'),
+    (name: 'compass', bg: 'linear-gradient(145deg, #F4F7FF, #C9D4E8)', fg: '#1B7FE4'),
+    (name: 'camera', bg: 'linear-gradient(145deg, #3A4157, #23283A)', fg: '#E8ECF8'),
+  ];
+
   @override
   Component build(BuildContext context) {
-    final featured = projects.where((x) => x.featured && x.phone).toList();
     final mobile = projects
         .where((x) =>
             x.phone && (x.platforms.contains('iOS') || x.platforms.contains('Android')))
+        .take(8)
         .toList();
-    // Favorites live in the dock, the rest on the home screen — like a real phone.
-    final dockApps = mobile.take(4).toList();
-    final gridApps = mobile.skip(4).take(6).toList();
 
     return div(classes: 'phone-scene', [
       div(classes: 'phone-glow', []),
@@ -41,24 +47,6 @@ class PhoneFrame extends StatelessComponent {
                   span(classes: 'sb-battery', [span(classes: 'sb-level', [])]),
                 ]),
               ]),
-              div(classes: 'notifs', [
-                for (final (i, proj) in featured.indexed)
-                  div(
-                    classes: 'notif',
-                    // 4s per notif; cycle length follows the featured count
-                    styles: Styles(raw: {
-                      'animation': 'notif-in ${featured.length * 4}s ease-in-out ${i * 4}s infinite both',
-                    }),
-                    [
-                      _appIcon(proj, 'notif-icon'),
-                      div(classes: 'notif-body', [
-                        strong([.text(proj.title)]),
-                        span([.text(proj.tagline)]),
-                      ]),
-                      span(classes: 'notif-time', [.text('now')]),
-                    ],
-                  ),
-              ]),
               div(classes: 'widgets', [
                 for (final s in stats.take(2))
                   div(classes: 'widget', [
@@ -77,15 +65,20 @@ class PhoneFrame extends StatelessComponent {
                   ]),
               ]),
               div(classes: 'apps', [
-                for (final proj in gridApps)
-                  div(classes: 'app', [
+                for (final proj in mobile)
+                  a(classes: 'app', href: '#${proj.slug}', attributes: {'title': proj.title}, [
                     _appIcon(proj, 'app-icon'),
                     span(classes: 'app-label', [.text(_short(proj.title))]),
                   ]),
               ]),
               div(classes: 'pagedots', [span(classes: 'on', []), span([])]),
               div(classes: 'dock', [
-                for (final proj in dockApps) _appIcon(proj, 'dock-app'),
+                for (final sys in _dockApps)
+                  div(
+                    classes: 'dock-app',
+                    styles: Styles(color: Color(sys.fg), raw: {'background': sys.bg}),
+                    [Icon(sys.name, size: 24)],
+                  ),
               ]),
               div(classes: 'homebar', []),
             ]),
@@ -116,11 +109,6 @@ class PhoneFrame extends StatelessComponent {
     css.keyframes('phone-float', {
       '0%, 100%': Styles(transform: .translate(y: 0.px)),
       '50%': Styles(transform: .translate(y: (-14).px)),
-    }),
-    // ponytail: visible window sized for 2 featured notifs (50% slots each)
-    css.keyframes('notif-in', {
-      '0%, 50%, 100%': Styles(opacity: 0, transform: .combine([.translate(y: (-18).px), .scale(0.92)])),
-      '4%, 44%': Styles(opacity: 1, transform: .combine([.translate(y: 0.px), .scale(1)])),
     }),
     css.keyframes('glow-pulse', {
       '0%, 100%': Styles(opacity: 0.55),
@@ -295,68 +283,11 @@ class PhoneFrame extends StatelessComponent {
           backgroundColor: T.accent2,
         ),
       ]),
-      css('.notifs', [
-        css('&').styles(
-          position: .absolute(top: 52.px, left: 14.px, right: 14.px),
-          zIndex: ZIndex(2),
-          height: 64.px,
-        ),
-        css('.notif').styles(
-          display: .flex,
-          position: .absolute(top: 0.px, left: 0.px, right: 0.px),
-          padding: .symmetric(vertical: 10.px, horizontal: 12.px),
-          radius: .circular(18.px),
-          opacity: 0,
-          backdropFilter: .blur(18.px),
-          alignItems: .center,
-          gap: .all(10.px),
-          backgroundColor: Color('#242D4CBB'),
-        ),
-        css('.notif-icon').styles(
-          display: .flex,
-          width: 34.px,
-          height: 34.px,
-          radius: .circular(9.px),
-          overflow: .hidden,
-          justifyContent: .center,
-          alignItems: .center,
-          flex: .none,
-          color: Color('#0B0E1A'),
-          fontSize: 16.px,
-          fontWeight: .w800,
-        ),
-        css('.notif-body', [
-          css('&').styles(
-            display: .flex,
-            overflow: .hidden,
-            flexDirection: .column,
-            flex: .grow(1),
-          ),
-          css('strong').styles(
-            color: T.text,
-            fontSize: 12.5.px,
-            lineHeight: 1.35.em,
-          ),
-          css('span').styles(
-            overflow: .hidden,
-            color: T.muted,
-            fontSize: 11.5.px,
-            lineHeight: 1.35.em,
-            textOverflow: .ellipsis,
-            whiteSpace: .noWrap,
-          ),
-        ]),
-        css('.notif-time').styles(
-          alignSelf: .start,
-          color: T.faint,
-          fontSize: 10.px,
-        ),
-      ]),
       css('.widgets', [
         css('&').styles(
           display: .grid,
           padding: .symmetric(vertical: 0.px, horizontal: 20.px),
-          margin: .only(top: 84.px),
+          margin: .only(top: 26.px),
           gridTemplate: GridTemplate(columns: GridTracks([GridTrack.repeat(TrackRepeat(2), [GridTrack(.fr(1))])])),
           gap: .all(10.px),
         ),
@@ -424,24 +355,36 @@ class PhoneFrame extends StatelessComponent {
       css('.apps', [
         css('&').styles(
           display: .grid,
-          padding: .symmetric(vertical: 0.px, horizontal: 20.px),
-          margin: .only(top: 22.px),
-          gridTemplate: GridTemplate(columns: GridTracks([GridTrack.repeat(TrackRepeat(3), [GridTrack(.fr(1))])])),
-          gap: Gap(row: 18.px, column: 8.px),
+          padding: .symmetric(vertical: 0.px, horizontal: 18.px),
+          margin: .only(top: 24.px),
+          gridTemplate: GridTemplate(columns: GridTracks([GridTrack.repeat(TrackRepeat(4), [GridTrack(.fr(1))])])),
+          gap: Gap(row: 16.px, column: 6.px),
         ),
-        css('.app').styles(
-          display: .flex,
-          flexDirection: .column,
-          alignItems: .center,
-          gap: .all(6.px),
-        ),
+        css('.app', [
+          css('&').styles(
+            display: .flex,
+            flexDirection: .column,
+            alignItems: .center,
+            gap: .all(6.px),
+          ),
+          css('&:hover .app-icon').styles(
+            transform: .scale(1.08),
+          ),
+          css('&:active .app-icon').styles(
+            transform: .scale(0.9),
+          ),
+          css('&:hover .app-label').styles(
+            color: T.text,
+          ),
+        ]),
         css('.app-icon').styles(
           display: .flex,
-          width: 52.px,
-          height: 52.px,
+          width: 50.px,
+          height: 50.px,
           radius: .circular(14.px),
           overflow: .hidden,
           shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('#00000055')),
+          transition: Transition('transform', duration: 200.ms, curve: .easeOut),
           justifyContent: .center,
           alignItems: .center,
           color: Color('#0B0E1A'),
@@ -449,10 +392,11 @@ class PhoneFrame extends StatelessComponent {
           fontWeight: .w800,
         ),
         css('.app-label').styles(
-          maxWidth: 70.px,
+          maxWidth: 60.px,
           overflow: .hidden,
+          transition: Transition('color', duration: 200.ms),
           color: T.muted,
-          fontSize: 10.5.px,
+          fontSize: 10.px,
           textOverflow: .ellipsis,
           whiteSpace: .noWrap,
         ),
@@ -509,7 +453,7 @@ class PhoneFrame extends StatelessComponent {
     css.media(.screen(maxWidth: 980.px), [
       css('.phone-scene .phone-body').styles(width: 270.px),
       css('.phone-scene .screen').styles(height: 556.px),
-      css('.phone-scene .widgets').styles(margin: .only(top: 72.px)),
+      css('.phone-scene .widgets').styles(margin: .only(top: 20.px)),
     ]),
   ];
 }
