@@ -15,6 +15,13 @@ class PhoneFrame extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final featured = projects.where((x) => x.featured && x.phone).toList();
+    final mobile = projects
+        .where((x) =>
+            x.phone && (x.platforms.contains('iOS') || x.platforms.contains('Android')))
+        .toList();
+    // Favorites live in the dock, the rest on the home screen — like a real phone.
+    final dockApps = mobile.take(4).toList();
+    final gridApps = mobile.skip(4).take(6).toList();
 
     return div(classes: 'phone-scene', [
       div(classes: 'phone-glow', []),
@@ -22,6 +29,8 @@ class PhoneFrame extends StatelessComponent {
         div(classes: 'phone-tilt', [
           div(classes: 'phone-body', [
             div(classes: 'screen', [
+              div(classes: 'wall-blob wall-a', []),
+              div(classes: 'wall-blob wall-b', []),
               div(classes: 'island', []),
               div(classes: 'statusbar', [
                 span(classes: 'sb-time', [.text('9:41')]),
@@ -56,21 +65,27 @@ class PhoneFrame extends StatelessComponent {
                     strong([.text(s.value)]),
                     span([.text(s.label)]),
                   ]),
+                if (stats.length > 2)
+                  div(classes: 'widget widget-wide', [
+                    div(classes: 'ww-copy', [
+                      strong([.text(stats[2].value)]),
+                      span([.text(stats[2].label)]),
+                    ]),
+                    div(classes: 'contrib', [
+                      for (final _ in Iterable.generate(12)) span([]),
+                    ]),
+                  ]),
               ]),
               div(classes: 'apps', [
-                // ponytail: 3 rows max — more icons would collide with the dock
-                for (final proj in projects
-                    .where((x) =>
-                        x.phone &&
-                        (x.platforms.contains('iOS') || x.platforms.contains('Android')))
-                    .take(9))
+                for (final proj in gridApps)
                   div(classes: 'app', [
                     _appIcon(proj, 'app-icon'),
                     span(classes: 'app-label', [.text(_short(proj.title))]),
                   ]),
               ]),
+              div(classes: 'pagedots', [span(classes: 'on', []), span([])]),
               div(classes: 'dock', [
-                for (final _ in [0, 1, 2, 3]) div(classes: 'dock-app', []),
+                for (final proj in dockApps) _appIcon(proj, 'dock-app'),
               ]),
               div(classes: 'homebar', []),
             ]),
@@ -102,13 +117,22 @@ class PhoneFrame extends StatelessComponent {
       '0%, 100%': Styles(transform: .translate(y: 0.px)),
       '50%': Styles(transform: .translate(y: (-14).px)),
     }),
+    // ponytail: visible window sized for 2 featured notifs (50% slots each)
     css.keyframes('notif-in', {
-      '0%, 33.5%, 100%': Styles(opacity: 0, transform: .combine([.translate(y: (-18).px), .scale(0.92)])),
-      '3%, 30%': Styles(opacity: 1, transform: .combine([.translate(y: 0.px), .scale(1)])),
+      '0%, 50%, 100%': Styles(opacity: 0, transform: .combine([.translate(y: (-18).px), .scale(0.92)])),
+      '4%, 44%': Styles(opacity: 1, transform: .combine([.translate(y: 0.px), .scale(1)])),
     }),
     css.keyframes('glow-pulse', {
       '0%, 100%': Styles(opacity: 0.55),
       '50%': Styles(opacity: 0.9),
+    }),
+    css.keyframes('wall-drift', {
+      '0%, 100%': Styles(transform: .combine([.translate(x: 0.px, y: 0.px), .scale(1)])),
+      '50%': Styles(transform: .combine([.translate(x: 26.px, y: (-20).px), .scale(1.15)])),
+    }),
+    css.keyframes('sheen', {
+      '0%, 55%': Styles(raw: {'transform': 'translateX(-130%) skewX(-18deg)'}),
+      '85%, 100%': Styles(raw: {'transform': 'translateX(230%) skewX(-18deg)'}),
     }),
     css('.phone-scene', [
       css('&').styles(
@@ -139,21 +163,86 @@ class PhoneFrame extends StatelessComponent {
       css('&:hover .phone-tilt').styles(
         raw: {'transform': 'rotateY(0deg) rotateX(0deg)'},
       ),
-      css('.phone-body').styles(
-        position: .relative(),
-        width: 300.px,
-        padding: .all(10.px),
-        border: .all(color: T.line, width: 1.px),
-        radius: .circular(48.px),
-        shadow: BoxShadow(offsetX: 0.px, offsetY: 40.px, blur: 80.px, color: Color('#00000066')),
-        backgroundColor: Color('#151B30'),
+      css('.phone-body', [
+        css('&').styles(
+          position: .relative(),
+          width: 300.px,
+          padding: .all(10.px),
+          border: .all(color: Color('#2E3A5E'), width: 1.px),
+          radius: .circular(48.px),
+          raw: {
+            'background': 'linear-gradient(160deg, #1D2440 0%, #12172B 45%, #0E1222 100%)',
+            'box-shadow':
+                '0 40px 80px #00000066, inset 0 1px 0 #FFFFFF14, inset 0 -1px 0 #00000055',
+          },
+        ),
+        // Volume buttons (left edge; second one via box-shadow) and power (right).
+        css('&::before').styles(
+          content: '',
+          position: .absolute(top: 120.px, left: (-3).px),
+          width: 3.px,
+          height: 34.px,
+          backgroundColor: Color('#2E3A5E'),
+          raw: {'border-radius': '2px 0 0 2px', 'box-shadow': '0 46px 0 #2E3A5E'},
+        ),
+        css('&::after').styles(
+          content: '',
+          position: .absolute(top: 150.px, right: (-3).px),
+          width: 3.px,
+          height: 56.px,
+          backgroundColor: Color('#2E3A5E'),
+          raw: {'border-radius': '0 2px 2px 0'},
+        ),
+      ]),
+      css('.screen', [
+        css('&').styles(
+          position: .relative(),
+          height: 620.px,
+          radius: .circular(38.px),
+          overflow: .hidden,
+          raw: {
+            'background':
+                'radial-gradient(120% 90% at 20% 0%, #1B2242 0%, #0D1122 55%, #0A0D1A 100%)',
+            'box-shadow': 'inset 0 0 0 1px #FFFFFF0A',
+          },
+        ),
+        // Glass sheen sweeping across the screen every few seconds.
+        css('&::after').styles(
+          content: '',
+          position: .absolute(top: 0.px, left: 0.px, bottom: 0.px),
+          zIndex: ZIndex(4),
+          width: 45.percent,
+          pointerEvents: .none,
+          raw: {
+            'background':
+                'linear-gradient(100deg, transparent 0%, #FFFFFF09 40%, #FFFFFF12 50%, #FFFFFF09 60%, transparent 100%)',
+            'animation': 'sheen 9s ease-in-out infinite',
+          },
+        ),
+      ]),
+      css('.wall-blob').styles(
+        position: .absolute(),
+        radius: .circular(50.percent),
+        filter: .blur(46.px),
+        pointerEvents: .none,
+        raw: {'animation': 'wall-drift 11s ease-in-out infinite'},
       ),
-      css('.screen').styles(
+      // Keep home-screen content above the wallpaper blobs.
+      css('.statusbar, .widgets, .apps').styles(
         position: .relative(),
-        height: 620.px,
-        radius: .circular(38.px),
-        overflow: .hidden,
-        raw: {'background': 'radial-gradient(120% 90% at 20% 0%, #1B2242 0%, #0D1122 55%, #0A0D1A 100%)'},
+        zIndex: ZIndex(1),
+      ),
+      css('.wall-a').styles(
+        position: .absolute(top: 6.percent, left: (-14).percent),
+        width: 200.px,
+        height: 200.px,
+        raw: {'background': '#7C8CFF3D'},
+      ),
+      css('.wall-b').styles(
+        position: .absolute(left: 34.percent, bottom: 10.percent),
+        width: 220.px,
+        height: 220.px,
+        raw: {'background': '#22D3EE2E', 'animation-delay': '-5.5s'},
       ),
       css('.island').styles(
         position: .absolute(top: 12.px, left: 50.percent),
@@ -300,6 +389,37 @@ class PhoneFrame extends StatelessComponent {
             raw: {'display': '-webkit-box', '-webkit-line-clamp': '2', '-webkit-box-orient': 'vertical'},
           ),
         ]),
+        css('.widget-wide', [
+          css('&').styles(
+            justifyContent: .spaceBetween,
+            alignItems: .center,
+            flexDirection: .row,
+            gap: .all(10.px),
+            raw: {'grid-column': 'span 2'},
+          ),
+          css('.ww-copy').styles(
+            display: .flex,
+            flexDirection: .column,
+            gap: .all(2.px),
+          ),
+          // GitHub-style contribution squares.
+          css('.contrib').styles(
+            display: .grid,
+            flex: .none,
+            gap: .all(3.px),
+            raw: {'grid-template-columns': 'repeat(6, 8px)'},
+          ),
+          css('.contrib span').styles(
+            width: 8.px,
+            height: 8.px,
+            radius: .circular(2.px),
+            backgroundColor: Color('#34D399'),
+            opacity: 0.18,
+          ),
+          css('.contrib span:nth-child(3n)').styles(opacity: 0.55),
+          css('.contrib span:nth-child(4n + 1)').styles(opacity: 0.9),
+          css('.contrib span:nth-child(5n + 2)').styles(opacity: 0.35),
+        ]),
       ]),
       css('.apps', [
         css('&').styles(
@@ -337,20 +457,45 @@ class PhoneFrame extends StatelessComponent {
           whiteSpace: .noWrap,
         ),
       ]),
+      css('.pagedots', [
+        css('&').styles(
+          display: .flex,
+          position: .absolute(bottom: 98.px, left: 0.px, right: 0.px),
+          justifyContent: .center,
+          gap: .all(7.px),
+        ),
+        css('span').styles(
+          width: 6.px,
+          height: 6.px,
+          radius: .circular(50.percent),
+          backgroundColor: Color('#E8ECF833'),
+        ),
+        css('span.on').styles(
+          backgroundColor: Color('#E8ECF8AA'),
+        ),
+      ]),
       css('.dock').styles(
         display: .flex,
         position: .absolute(bottom: 22.px, left: 16.px, right: 16.px),
         padding: .all(10.px),
+        border: .all(color: Color('#FFFFFF0F'), width: 1.px),
         radius: .circular(24.px),
         backdropFilter: .blur(14.px),
         justifyContent: .spaceAround,
         backgroundColor: Color('#242D4C66'),
       ),
       css('.dock-app').styles(
-        width: 44.px,
-        height: 44.px,
-        radius: .circular(12.px),
-        raw: {'background': 'linear-gradient(145deg, #2A3355, #1B2240)'},
+        display: .flex,
+        width: 46.px,
+        height: 46.px,
+        radius: .circular(13.px),
+        overflow: .hidden,
+        shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('#00000055')),
+        justifyContent: .center,
+        alignItems: .center,
+        color: Color('#0B0E1A'),
+        fontSize: 20.px,
+        fontWeight: .w800,
       ),
       css('.homebar').styles(
         position: .absolute(bottom: 7.px, left: 50.percent),
