@@ -21,7 +21,7 @@ stats:
 availability: Open to opportunities
 # Access key from https://web3forms.com (public by design, safe to commit).
 # Leave empty to hide the contact form and show only the email button.
-web3forms_key: ""
+web3forms_key: "e87b1125-90d4-4cb2-b30d-dddce0a8105f"
 ---
 
 I'm a mobile developer studying Data Science at **IIT Mandi** (B.Tech, '26). I've
