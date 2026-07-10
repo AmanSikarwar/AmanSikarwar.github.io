@@ -76,6 +76,39 @@ class _InteractionsState extends State<Interactions> {
         root.classList.remove('menu-open');
       });
     }
+
+    // Contact form: submit via fetch and show inline status instead of
+    // navigating away. Plain HTML POST still works if this never runs.
+    final formEl = doc.querySelector('form.cform') as web.HTMLFormElement?;
+    if (formEl != null) {
+      final status = doc.querySelector('.cform-status') as web.HTMLElement?;
+      final send = doc.querySelector('.cform-send') as web.HTMLButtonElement?;
+      web.EventStreamProviders.submitEvent.forTarget(formEl).listen((web.Event e) async {
+        e.preventDefault();
+        send?.disabled = true;
+        status?.className = 'cform-status';
+        try {
+          final resp = await web.window
+              .fetch(
+                formEl.action.toJS,
+                web.RequestInit(
+                  method: 'POST',
+                  headers: {'Accept': 'application/json'}.jsify()! as JSObject,
+                  body: web.FormData(formEl),
+                ),
+              )
+              .toDart;
+          if (!resp.ok) throw Exception('HTTP ${resp.status}');
+          formEl.reset();
+          status?.textContent = "Message sent — I'll get back to you soon.";
+          status?.className = 'cform-status ok';
+        } catch (_) {
+          status?.textContent = 'Something went wrong — please use the email link below.';
+          status?.className = 'cform-status err';
+        }
+        send?.disabled = false;
+      });
+    }
   }
 
   @override

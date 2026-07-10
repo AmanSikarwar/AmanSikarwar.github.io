@@ -56,6 +56,7 @@ SiteContent loadContent({String root = 'content'}) {
         (value: s['value'] as String, label: s['label'] as String),
     ],
     availability: p.meta['availability'] as String,
+    web3formsKey: (p.meta['web3forms_key'] as String?) ?? '',
     bodyHtml: p.bodyHtml,
   );
 

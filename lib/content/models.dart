@@ -14,6 +14,7 @@ class Profile {
     required this.socials,
     required this.stats,
     required this.availability,
+    required this.web3formsKey,
     required this.bodyHtml,
   });
 
@@ -26,6 +27,9 @@ class Profile {
   final Map<String, String> socials;
   final List<({String value, String label})> stats;
   final String availability;
+
+  /// Web3Forms access key; empty hides the contact form.
+  final String web3formsKey;
   final String bodyHtml;
 }
 
