@@ -12,6 +12,9 @@ location: India
 socials:
   github: https://github.com/AmanSikarwar
   linkedin: https://linkedin.com/in/amansikarwar
+  x: https://x.com/amansikarwaar
+  instagram: https://www.instagram.com/amansikarwaar
+  youtube: https://www.youtube.com/@amansikarwaar
   medium: https://medium.com/@amansikarwar
 stats:
   - value: "2"
