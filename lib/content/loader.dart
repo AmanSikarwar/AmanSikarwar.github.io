@@ -96,6 +96,23 @@ SiteContent loadContent({String root = 'content'}) {
       }(),
   ];
 
+  final contributions = [
+    for (final f in _filesIn('$root/contributions'))
+      () {
+        final d = _parse(f);
+        return Contribution(
+          project: d.meta['project'] as String,
+          context: d.meta['context'] as String,
+          stars: d.meta['stars'] as String,
+          lang: d.meta['lang'] as String,
+          accent: d.meta['accent'] as String,
+          pr: d.meta['pr'] as String,
+          merged: (d.meta['merged'] as bool?) ?? true,
+          bodyHtml: d.bodyHtml,
+        );
+      }(),
+  ];
+
   final s = _parse(File('$root/skills.md'));
   final skills = Skills(
     ticker: _stringList(s.meta['ticker']),
@@ -109,5 +126,11 @@ SiteContent loadContent({String root = 'content'}) {
     ],
   );
 
-  return SiteContent(profile: profile, experience: experience, projects: projects, skills: skills);
+  return SiteContent(
+    profile: profile,
+    experience: experience,
+    projects: projects,
+    contributions: contributions,
+    skills: skills,
+  );
 }

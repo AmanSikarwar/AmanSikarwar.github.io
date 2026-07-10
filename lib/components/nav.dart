@@ -6,7 +6,7 @@ import '../styles/theme.dart';
 class Nav extends StatelessComponent {
   const Nav({super.key});
 
-  static const _links = ['about', 'experience', 'projects', 'skills'];
+  static const _links = ['about', 'experience', 'projects', 'oss', 'skills'];
 
   @override
   Component build(BuildContext context) {

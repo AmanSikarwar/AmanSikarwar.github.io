@@ -87,6 +87,32 @@ class Project {
   final String bodyHtml;
 }
 
+class Contribution {
+  const Contribution({
+    required this.project,
+    required this.context,
+    required this.stars,
+    required this.lang,
+    required this.accent,
+    required this.pr,
+    required this.merged,
+    required this.bodyHtml,
+  });
+
+  final String project;
+
+  /// One-line description of the upstream project.
+  final String context;
+  final String stars;
+  final String lang;
+  final String accent;
+
+  /// Pull request URL; the repo URL is everything before `/pull/`.
+  final String pr;
+  final bool merged;
+  final String bodyHtml;
+}
+
 class SkillGroup {
   const SkillGroup({required this.title, required this.icon, required this.skills});
 
@@ -107,11 +133,13 @@ class SiteContent {
     required this.profile,
     required this.experience,
     required this.projects,
+    required this.contributions,
     required this.skills,
   });
 
   final Profile profile;
   final List<Experience> experience;
   final List<Project> projects;
+  final List<Contribution> contributions;
   final Skills skills;
 }

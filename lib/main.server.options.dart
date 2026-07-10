@@ -7,6 +7,7 @@
 import 'package:jaspr/server.dart';
 import 'package:portfolio/components/about.dart' as _about;
 import 'package:portfolio/components/contact.dart' as _contact;
+import 'package:portfolio/components/contributions.dart' as _contributions;
 import 'package:portfolio/components/experience.dart' as _experience;
 import 'package:portfolio/components/hero.dart' as _hero;
 import 'package:portfolio/components/interactions.dart' as _interactions;
@@ -44,6 +45,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._theme.globalStyles,
     ..._about.About.styles,
     ..._contact.Contact.styles,
+    ..._contributions.ContributionsSection.styles,
     ..._experience.ExperienceSection.styles,
     ..._hero.Hero.styles,
     ..._nav.Nav.styles,

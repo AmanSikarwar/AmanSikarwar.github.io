@@ -15,6 +15,8 @@ void main() {
   assert(c.projects.length == 16);
   assert(c.projects.where((p) => p.featured).length == 2);
   assert(c.projects.every((p) => p.accent.startsWith('#')));
+  assert(c.contributions.length == 2);
+  assert(c.contributions.every((x) => x.pr.contains('/pull/')));
   assert(c.skills.ticker.isNotEmpty && c.skills.groups.length == 5);
   print('content OK: ${c.projects.length} projects, ${c.experience.length} roles');
 }

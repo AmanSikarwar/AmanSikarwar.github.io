@@ -3,6 +3,7 @@ import 'package:jaspr/server.dart';
 
 import 'components/about.dart';
 import 'components/contact.dart';
+import 'components/contributions.dart';
 import 'components/experience.dart';
 import 'components/hero.dart';
 import 'components/interactions.dart';
@@ -27,6 +28,7 @@ class App extends AsyncStatelessComponent {
         About(profile: content.profile),
         ExperienceSection(roles: content.experience),
         ProjectsSection(projects: content.projects),
+        ContributionsSection(contributions: content.contributions),
         SkillsSection(skills: content.skills),
       ]),
       Contact(profile: content.profile),
