@@ -56,7 +56,8 @@ class PhoneFrame extends StatelessComponent {
                   ]),
               ]),
               div(classes: 'apps', [
-                for (final proj in projects)
+                // ponytail: 3 rows max — more icons would collide with the dock
+                for (final proj in projects.take(9))
                   div(classes: 'app', [
                     _appIcon(proj, 'app-icon'),
                     span(classes: 'app-label', [.text(_short(proj.title))]),
