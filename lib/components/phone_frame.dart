@@ -133,8 +133,8 @@ class PhoneFrame extends StatelessComponent {
       css('.screen').styles(
         position: .relative(),
         height: 620.px,
-        overflow: .hidden,
         radius: .circular(38.px),
+        overflow: .hidden,
         raw: {'background': 'radial-gradient(120% 90% at 20% 0%, #1B2242 0%, #0D1122 55%, #0A0D1A 100%)'},
       ),
       css('.island').styles(
@@ -195,8 +195,8 @@ class PhoneFrame extends StatelessComponent {
           height: 64.px,
         ),
         css('.notif').styles(
-          position: .absolute(top: 0.px, left: 0.px, right: 0.px),
           display: .flex,
+          position: .absolute(top: 0.px, left: 0.px, right: 0.px),
           padding: .symmetric(vertical: 10.px, horizontal: 12.px),
           radius: .circular(18.px),
           opacity: 0,
@@ -211,9 +211,9 @@ class PhoneFrame extends StatelessComponent {
           width: 34.px,
           height: 34.px,
           radius: .circular(9.px),
-          flex: .none,
           justifyContent: .center,
           alignItems: .center,
+          flex: .none,
           color: Color('#0B0E1A'),
           fontSize: 16.px,
           fontWeight: .w800,
@@ -319,8 +319,8 @@ class PhoneFrame extends StatelessComponent {
         ),
       ]),
       css('.dock').styles(
-        position: .absolute(bottom: 22.px, left: 16.px, right: 16.px),
         display: .flex,
+        position: .absolute(bottom: 22.px, left: 16.px, right: 16.px),
         padding: .all(10.px),
         radius: .circular(24.px),
         backdropFilter: .blur(14.px),

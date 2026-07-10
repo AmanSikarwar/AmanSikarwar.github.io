@@ -94,8 +94,8 @@ class Hero extends StatelessComponent {
       css('.hero-in').styles(
         display: .grid,
         minHeight: 100.vh,
-        gridTemplate: GridTemplate(columns: GridTracks([GridTrack(.fr(1.05)), GridTrack(.fr(0.95))])),
         alignItems: .center,
+        gridTemplate: GridTemplate(columns: GridTracks([GridTrack(.fr(1.05)), GridTrack(.fr(0.95))])),
         gap: .all(2.rem),
         raw: {'padding-top': '8rem', 'padding-bottom': '4rem'},
       ),

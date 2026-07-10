@@ -20,6 +20,8 @@ void main() {
   runApp(Document(
     title: _title,
     lang: 'en',
+    // Set by CI for project-page deployments (e.g. /portfolio/).
+    base: const String.fromEnvironment('BASE_PATH', defaultValue: '/'),
     meta: {
       'description': _description,
       'og:title': _title,

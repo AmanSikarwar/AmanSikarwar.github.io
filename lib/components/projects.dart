@@ -93,8 +93,8 @@ class ProjectsSection extends StatelessComponent {
       ),
       css('.proj', [
         css('&').styles(
-          position: .relative(),
           display: .flex,
+          position: .relative(),
           padding: .all(1.7.rem),
           border: .all(color: T.line, width: 1.px),
           radius: .circular(22.px),
@@ -133,9 +133,9 @@ class ProjectsSection extends StatelessComponent {
         width: 54.px,
         height: 54.px,
         radius: .circular(15.px),
-        flex: .none,
         justifyContent: .center,
         alignItems: .center,
+        flex: .none,
         color: T.bg,
         fontFamily: T.display,
         fontSize: 24.px,
@@ -163,8 +163,8 @@ class ProjectsSection extends StatelessComponent {
         css('&').styles(
           padding: .symmetric(vertical: 0.42.rem, horizontal: 1.1.rem),
           radius: .circular(99.px),
-          flex: .none,
           transition: Transition('all', duration: 250.ms, curve: .easeOut),
+          flex: .none,
           fontFamily: T.mono,
           fontSize: 0.78.rem,
           fontWeight: .w500,

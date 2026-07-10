@@ -1,15 +1,36 @@
-# portfolio
+# amansikarwar — portfolio
 
-A new Jaspr project
+Personal portfolio of **Aman Sikarwar**, Mobile App Developer. Built with
+[Jaspr](https://jaspr.site) (Dart) as a fully static site.
 
-## Running the project
+## Editing content
 
-Run your project using `jaspr serve`.
+All portfolio content lives in `/content` as markdown with YAML frontmatter —
+no Dart changes needed to update it:
 
-The development server will be available on `http://localhost:8080`.
+```
+content/
+  profile.md         # name, tagline, bio, socials, stats
+  skills.md          # skill ticker + grouped skills
+  experience/*.md    # one file per role
+  projects/*.md      # one file per project (accent color, links, tech, ...)
+```
 
-## Building the project
+Content is parsed at build time and baked into the HTML. Sanity-check it with:
 
-Build your project using `jaspr build`.
+```sh
+dart run tool/check_content.dart
+```
 
-The output will be located inside the `build/jaspr/` directory.
+## Develop & build
+
+```sh
+jaspr serve    # dev server on http://localhost:8080
+jaspr build    # static output in build/jaspr/
+```
+
+## Deploy
+
+Pushes to `main` deploy to GitHub Pages via `.github/workflows/deploy.yml`.
+The base path is derived from the repository name automatically (user page
+vs. project page).
