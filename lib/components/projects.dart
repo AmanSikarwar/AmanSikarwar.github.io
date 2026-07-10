@@ -48,7 +48,12 @@ class ProjectsSection extends StatelessComponent {
       styles: Styles(raw: {'--pa': proj.accent}),
       [
         div(classes: 'proj-top', [
-          div(classes: 'proj-icon', [.text(proj.title[0])]),
+          if (proj.icon case final icon?)
+            div(classes: 'proj-icon proj-icon-img', [
+              img(src: icon, alt: '${proj.title} app icon', loading: .lazy),
+            ])
+          else
+            div(classes: 'proj-icon', [.text(proj.title[0])]),
           div(classes: 'proj-id', [
             h3([.text(proj.title)]),
             span(classes: 'proj-tagline', [.text(proj.tagline)]),
@@ -144,6 +149,15 @@ class ProjectsSection extends StatelessComponent {
           'background': 'linear-gradient(145deg, var(--pa), color-mix(in srgb, var(--pa) 60%, #0B0E1A))',
           'box-shadow': '0 8px 20px color-mix(in srgb, var(--pa) 30%, transparent)',
         },
+      ),
+      css('.proj-icon-img').styles(
+        overflow: .hidden,
+        raw: {'background': 'none'},
+      ),
+      css('.proj-icon-img img').styles(
+        width: 100.percent,
+        height: 100.percent,
+        raw: {'object-fit': 'cover'},
       ),
       css('.proj-id').styles(
         flex: .grow(1),

@@ -3,6 +3,7 @@ title: MyItihas
 tagline: AI-powered storytelling, live on both stores
 featured: true
 accent: "#F59E0B"
+icon: images/apps/myitihas.png
 platforms: [iOS, Android]
 tech: [Flutter, Supabase, Clean Architecture + DDD, Brick, Firebase FCM]
 links:

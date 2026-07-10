@@ -15,6 +15,10 @@ class About extends StatelessComponent {
     return section(id: 'about', classes: 'section about', [
       const SectionHeader(eyebrow: 'about', title: 'Builder of apps, end to end'),
       div(classes: 'about-grid', [
+        if (profile.photo case final photo?)
+          div(classes: 'about-photo reveal', [
+            img(src: photo, alt: profile.name, loading: .lazy),
+          ]),
         div(classes: 'md about-bio reveal', [RawText(profile.bodyHtml)]),
         div(classes: 'about-stats', [
           for (final s in profile.stats)
@@ -32,9 +36,30 @@ class About extends StatelessComponent {
     css('.about', [
       css('.about-grid').styles(
         display: .grid,
-        gridTemplate: GridTemplate(columns: GridTracks([GridTrack(.fr(1.5)), GridTrack(.fr(1))])),
-        gap: .all(4.rem),
+        alignItems: .start,
+        gap: .all(3.rem),
+        raw: {'grid-template-columns': 'minmax(190px, 230px) 1.4fr 1fr'},
       ),
+      css('.about-photo', [
+        // App-icon squircle with a gradient ring — the developer as an app.
+        css('&').styles(
+          padding: .all(3.px),
+          radius: .circular(30.px),
+          transition: Transition('transform', duration: 400.ms, curve: .cubicBezier(0.22, 1, 0.36, 1)),
+          transform: .rotate((-2).deg),
+          raw: {'background': T.gradient, 'box-shadow': '0 18px 44px #7C8CFF2E'},
+        ),
+        css('&:hover').styles(
+          transform: .combine([.rotate(0.deg), .scale(1.02)]),
+        ),
+        css('img').styles(
+          display: .block,
+          width: 100.percent,
+          radius: .circular(27.px),
+          aspectRatio: AspectRatio(1),
+          raw: {'object-fit': 'cover'},
+        ),
+      ]),
       css('.about-stats').styles(
         display: .flex,
         flexDirection: .column,
@@ -99,10 +124,13 @@ class About extends StatelessComponent {
         color: T.accent2,
       ),
     ]),
-    css.media(.screen(maxWidth: 860.px), [
+    css.media(.screen(maxWidth: 980.px), [
       css('.about .about-grid').styles(
-        gridTemplate: GridTemplate(columns: GridTracks([GridTrack(.fr(1))])),
         gap: .all(2.5.rem),
+        raw: {'grid-template-columns': '1fr'},
+      ),
+      css('.about .about-photo').styles(
+        maxWidth: 220.px,
       ),
     ]),
   ];

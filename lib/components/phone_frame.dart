@@ -39,11 +39,7 @@ class PhoneFrame extends StatelessComponent {
                     // ponytail: cycle timing assumes 3 featured projects
                     styles: Styles(raw: {'animation-delay': '${i * 4}s'}),
                     [
-                      div(
-                        classes: 'notif-icon',
-                        styles: Styles(raw: {'background': proj.accent}),
-                        [.text(proj.title[0])],
-                      ),
+                      _appIcon(proj, 'notif-icon'),
                       div(classes: 'notif-body', [
                         strong([.text(proj.title)]),
                         span([.text(proj.tagline)]),
@@ -62,11 +58,7 @@ class PhoneFrame extends StatelessComponent {
               div(classes: 'apps', [
                 for (final proj in projects)
                   div(classes: 'app', [
-                    div(
-                      classes: 'app-icon',
-                      styles: Styles(raw: {'background': 'linear-gradient(145deg, ${proj.accent}, ${proj.accent}99)'}),
-                      [.text(proj.title[0])],
-                    ),
+                    _appIcon(proj, 'app-icon'),
                     span(classes: 'app-label', [.text(_short(proj.title))]),
                   ]),
               ]),
@@ -82,6 +74,20 @@ class PhoneFrame extends StatelessComponent {
   }
 
   static String _short(String title) => title.split(RegExp(r'[ &]')).first;
+
+  /// Real app icon when the project has one, gradient letter tile otherwise.
+  static Component _appIcon(Project proj, String classes) {
+    if (proj.icon case final icon?) {
+      return div(classes: classes, [
+        img(classes: 'app-img', src: icon, alt: proj.title, loading: .lazy),
+      ]);
+    }
+    return div(
+      classes: classes,
+      styles: Styles(raw: {'background': 'linear-gradient(145deg, ${proj.accent}, ${proj.accent}99)'}),
+      [.text(proj.title[0])],
+    );
+  }
 
   @css
   static List<StyleRule> get styles => [
@@ -101,6 +107,11 @@ class PhoneFrame extends StatelessComponent {
       css('&').styles(
         position: .relative(),
         raw: {'perspective': '1400px'},
+      ),
+      css('.app-img').styles(
+        width: 100.percent,
+        height: 100.percent,
+        raw: {'object-fit': 'cover'},
       ),
       css('.phone-glow').styles(
         position: .absolute(top: 10.percent, left: 8.percent, right: 8.percent, bottom: 8.percent),
@@ -211,6 +222,7 @@ class PhoneFrame extends StatelessComponent {
           width: 34.px,
           height: 34.px,
           radius: .circular(9.px),
+          overflow: .hidden,
           justifyContent: .center,
           alignItems: .center,
           flex: .none,
@@ -302,6 +314,7 @@ class PhoneFrame extends StatelessComponent {
           width: 52.px,
           height: 52.px,
           radius: .circular(14.px),
+          overflow: .hidden,
           shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('#00000055')),
           justifyContent: .center,
           alignItems: .center,

@@ -6,6 +6,7 @@ intro: >
   Native iOS (SwiftUI) and Flutter developer with App Store–shipped apps —
   from pixel-perfect UI to real-time backends and cloud infrastructure.
 email: amansikarwaar@gmail.com
+photo: images/profile.jpg
 location: IIT Mandi, India
 socials:
   github: https://github.com/AmanSikarwar

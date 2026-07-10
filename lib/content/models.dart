@@ -16,6 +16,7 @@ class Profile {
     required this.availability,
     required this.web3formsKey,
     required this.bodyHtml,
+    this.photo,
   });
 
   final String name;
@@ -30,6 +31,9 @@ class Profile {
 
   /// Web3Forms access key; empty hides the contact form.
   final String web3formsKey;
+
+  /// Relative path to the profile photo (under web/), null to omit.
+  final String? photo;
   final String bodyHtml;
 }
 
@@ -62,6 +66,7 @@ class Project {
     required this.links,
     required this.bodyHtml,
     this.role,
+    this.icon,
   });
 
   final String title;
@@ -72,6 +77,9 @@ class Project {
   final List<String> tech;
   final Map<String, String> links;
   final String? role;
+
+  /// Relative path to the real app icon (under web/); letter tile if null.
+  final String? icon;
   final String bodyHtml;
 }
 

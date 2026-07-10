@@ -3,6 +3,7 @@ title: Freedium Mobile
 tagline: Open source, 98★ on GitHub
 featured: false
 accent: "#34D399"
+icon: images/apps/freedium.png
 platforms: [Android, iOS]
 tech: [Flutter, Dart]
 links:

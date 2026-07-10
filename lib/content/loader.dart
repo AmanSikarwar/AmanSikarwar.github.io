@@ -57,6 +57,7 @@ SiteContent loadContent({String root = 'content'}) {
     ],
     availability: p.meta['availability'] as String,
     web3formsKey: (p.meta['web3forms_key'] as String?) ?? '',
+    photo: p.meta['photo'] as String?,
     bodyHtml: p.bodyHtml,
   );
 
@@ -88,6 +89,7 @@ SiteContent loadContent({String root = 'content'}) {
           tech: _stringList(d.meta['tech']),
           links: _stringMap(d.meta['links']),
           role: d.meta['role'] as String?,
+          icon: d.meta['icon'] as String?,
           bodyHtml: d.bodyHtml,
         );
       }(),
