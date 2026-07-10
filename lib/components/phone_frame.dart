@@ -22,8 +22,8 @@ const _phoneDark = {
 };
 
 const _phoneLight = {
-  '--ph-frame': 'linear-gradient(160deg, #FBF6F3 0%, #EADFE3 45%, #D9CBD1 100%)',
-  '--ph-frame-line': '#C7B9C0',
+  '--ph-frame': 'linear-gradient(160deg, #F2E9EC 0%, #CFC0C8 45%, #B4A3AE 100%)',
+  '--ph-frame-line': '#9E8E99',
   '--ph-screen': 'radial-gradient(120% 90% at 20% 0%, #FFFBF5 0%, #F6EBEC 55%, #EDE0E4 100%)',
   '--ph-widget': '#FFFFFF9E',
   '--ph-widget-line': '#E5D8D0AA',
@@ -188,16 +188,17 @@ class PhoneFrame extends StatelessComponent {
         raw: {'transform': 'rotateY(0deg) rotateX(0deg)'},
       ),
       css('.phone-body', [
+        // Thin metal rim; the black bezel inside is the dominant ring.
         css('&').styles(
           position: .relative(),
           width: 300.px,
-          padding: .all(10.px),
+          padding: .all(4.px),
           border: .all(color: Color('var(--ph-frame-line)'), width: 1.px),
-          radius: .circular(48.px),
+          radius: .circular(52.px),
           raw: {
             'background': 'var(--ph-frame)',
             'box-shadow':
-                '0 40px 80px var(--ph-shadow), inset 0 1px 0 #FFFFFF14, inset 0 -1px 0 #00000055',
+                '0 40px 80px var(--ph-shadow), inset 0 1px 0 #FFFFFF2E, inset 0 -1px 0 #00000055',
           },
         ),
         // Volume buttons (left edge; second one via box-shadow) and power (right).
@@ -222,13 +223,13 @@ class PhoneFrame extends StatelessComponent {
         // Black display bezel between frame and screen, like real hardware.
         css('&').styles(
           position: .relative(),
-          height: 620.px,
-          border: .all(color: Color('#08060A'), width: 4.px),
-          radius: .circular(40.px),
+          height: 632.px,
+          border: .all(color: Color('#08060A'), width: 10.px),
+          radius: .circular(48.px),
           overflow: .hidden,
           raw: {
             'background': 'var(--ph-screen)',
-            'box-shadow': 'inset 0 0 0 1px #FFFFFF0A, 0 0 0 1px #00000022',
+            'box-shadow': 'inset 0 0 0 1px #FFFFFF0A',
           },
         ),
         // Glass sheen sweeping across the screen every few seconds.
@@ -270,7 +271,7 @@ class PhoneFrame extends StatelessComponent {
         raw: {'background': '#FF7A9C2E', 'animation-delay': '-5.5s'},
       ),
       css('.island').styles(
-        position: .absolute(top: 12.px, left: 50.percent),
+        position: .absolute(top: 8.px, left: 50.percent),
         zIndex: ZIndex(3),
         width: 92.px,
         height: 26.px,
@@ -489,7 +490,7 @@ class PhoneFrame extends StatelessComponent {
     ]),
     css.media(.screen(maxWidth: 980.px), [
       css('.phone-scene .phone-body').styles(width: 270.px),
-      css('.phone-scene .screen').styles(height: 556.px),
+      css('.phone-scene .screen').styles(height: 568.px),
       css('.phone-scene .widgets').styles(margin: .only(top: 20.px)),
     ]),
   ];
