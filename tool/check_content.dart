@@ -12,7 +12,7 @@ void main() {
   assert(c.profile.bodyHtml.contains('<p>'));
   assert(c.experience.length == 2);
   assert(c.experience.first.bodyHtml.contains('<li>'));
-  assert(c.projects.length == 9);
+  assert(c.projects.length == 10);
   assert(c.projects.where((p) => p.featured).length == 3);
   assert(c.projects.every((p) => p.accent.startsWith('#')));
   assert(c.skills.ticker.isNotEmpty && c.skills.groups.length == 5);
