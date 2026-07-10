@@ -2,10 +2,12 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/server.dart';
 
 import 'components/about.dart';
+import 'components/contact.dart';
 import 'components/experience.dart';
 import 'components/hero.dart';
 import 'components/nav.dart';
 import 'components/projects.dart';
+import 'components/skills.dart';
 import 'content/loader.dart';
 
 /// Single-page portfolio. Loads /content at build time and assembles sections.
@@ -24,7 +26,9 @@ class App extends AsyncStatelessComponent {
         About(profile: content.profile),
         ExperienceSection(roles: content.experience),
         ProjectsSection(projects: content.projects),
+        SkillsSection(skills: content.skills),
       ]),
+      Contact(profile: content.profile),
     ]);
   }
 }
