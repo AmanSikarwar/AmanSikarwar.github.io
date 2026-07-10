@@ -84,10 +84,10 @@ class Contact extends StatelessComponent {
   static List<StyleRule> get styles => [
     css('.contact', [
       css('&').styles(
-        border: .only(top: BorderSide.solid(color: Color('#232C4A66'), width: 1.px)),
+        border: .only(top: BorderSide.solid(color: Color('#33263D66'), width: 1.px)),
         raw: {
           'background':
-              'radial-gradient(60% 80% at 50% 100%, #7C8CFF14 0%, transparent 70%), radial-gradient(40% 60% at 80% 100%, #22D3EE10 0%, transparent 70%)',
+              'radial-gradient(60% 80% at 50% 100%, #FFA96B14 0%, transparent 70%), radial-gradient(40% 60% at 80% 100%, #FF7A9C10 0%, transparent 70%)',
         },
       ),
       css('.contact-card').styles(
@@ -146,7 +146,7 @@ class Contact extends StatelessComponent {
           color: T.text,
           fontFamily: T.body,
           fontSize: 0.95.rem,
-          backgroundColor: Color('#121729AA'),
+          backgroundColor: Color('#1A1420AA'),
         ),
         css('textarea').styles(
           raw: {'resize': 'vertical', 'min-height': '7rem'},
@@ -155,7 +155,7 @@ class Contact extends StatelessComponent {
           color: T.faint,
         ),
         css('input:focus, textarea:focus').styles(
-          border: .all(color: Color('#7C8CFF88'), width: 1.px),
+          border: .all(color: Color('#FFA96B88'), width: 1.px),
           outline: Outline(style: .none),
         ),
         css('.cform-send', [

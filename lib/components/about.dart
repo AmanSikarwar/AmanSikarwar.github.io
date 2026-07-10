@@ -47,7 +47,7 @@ class About extends StatelessComponent {
           radius: .circular(30.px),
           transition: Transition('transform', duration: 400.ms, curve: .cubicBezier(0.22, 1, 0.36, 1)),
           transform: .rotate((-2).deg),
-          raw: {'background': T.gradient, 'box-shadow': '0 18px 44px #7C8CFF2E'},
+          raw: {'background': T.gradient, 'box-shadow': '0 18px 44px #FFA96B2E'},
         ),
         css('&:hover').styles(
           transform: .combine([.rotate(0.deg), .scale(1.02)]),
@@ -71,10 +71,10 @@ class About extends StatelessComponent {
           border: .all(color: T.line, width: 1.px),
           radius: .circular(18.px),
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
-          backgroundColor: Color('#12172966'),
+          backgroundColor: Color('#1A142066'),
         ),
         css('&:hover').styles(
-          border: .all(color: Color('#7C8CFF55'), width: 1.px),
+          border: .all(color: Color('#FFA96B55'), width: 1.px),
           transform: .translate(x: 6.px),
         ),
         css('strong').styles(

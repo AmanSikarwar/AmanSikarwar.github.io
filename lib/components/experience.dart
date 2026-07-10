@@ -47,7 +47,7 @@ class ExperienceSection extends StatelessComponent {
         padding: .only(left: 2.rem),
         raw: {
           'background':
-              'linear-gradient(180deg, #7C8CFF66, #22D3EE33 70%, transparent) no-repeat left top / 2px 100%',
+              'linear-gradient(180deg, #FFA96B66, #FF7A9C33 70%, transparent) no-repeat left top / 2px 100%',
         },
       ),
       css('.xp-item').styles(
@@ -61,7 +61,7 @@ class ExperienceSection extends StatelessComponent {
         border: .all(color: T.accent, width: 2.px),
         radius: .circular(50.percent),
         backgroundColor: T.bg,
-        raw: {'box-shadow': '0 0 12px #7C8CFF88'},
+        raw: {'box-shadow': '0 0 12px #FFA96B88'},
       ),
       css('.xp-card', [
         css('&').styles(
@@ -69,10 +69,10 @@ class ExperienceSection extends StatelessComponent {
           border: .all(color: T.line, width: 1.px),
           radius: .circular(20.px),
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
-          backgroundColor: Color('#12172966'),
+          backgroundColor: Color('#1A142066'),
         ),
         css('&:hover').styles(
-          border: .all(color: Color('#7C8CFF55'), width: 1.px),
+          border: .all(color: Color('#FFA96B55'), width: 1.px),
           transform: .translate(y: (-4).px),
           raw: {'box-shadow': '0 18px 44px #00000055'},
         ),
@@ -119,10 +119,10 @@ class ExperienceSection extends StatelessComponent {
       color: T.muted,
       fontFamily: T.mono,
       fontSize: 0.75.rem,
-      backgroundColor: Color('#181F3688'),
+      backgroundColor: Color('#241B2C88'),
     ),
     css('.chip:hover').styles(
-      border: .all(color: Color('#22D3EE66'), width: 1.px),
+      border: .all(color: Color('#FF7A9C66'), width: 1.px),
       color: T.text,
     ),
     css.media(.screen(maxWidth: 720.px), [

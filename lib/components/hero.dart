@@ -68,7 +68,7 @@ class Hero extends StatelessComponent {
         position: .relative(),
         overflow: .hidden,
         raw: {
-          'background-image': 'radial-gradient(circle, #232C4A55 1px, transparent 1px)',
+          'background-image': 'radial-gradient(circle, #33263D55 1px, transparent 1px)',
           'background-size': '34px 34px',
         },
       ),
@@ -83,13 +83,13 @@ class Hero extends StatelessComponent {
         position: .absolute(top: (-10).percent, left: (-8).percent),
         width: 480.px,
         height: 480.px,
-        backgroundColor: Color('#7C8CFF2E'),
+        backgroundColor: Color('#FFA96B2E'),
       ),
       css('.orb-b').styles(
         position: .absolute(right: (-6).percent, bottom: (-14).percent),
         width: 420.px,
         height: 420.px,
-        raw: {'animation-delay': '-8s', 'background-color': '#22D3EE24'},
+        raw: {'animation-delay': '-8s', 'background-color': '#FF7A9C24'},
       ),
       css('.hero-in').styles(
         display: .grid,
@@ -118,7 +118,7 @@ class Hero extends StatelessComponent {
           color: T.muted,
           fontFamily: T.mono,
           fontSize: 0.78.rem,
-          backgroundColor: Color('#12172988'),
+          backgroundColor: Color('#1A142088'),
         ),
         css('.pill-dot').styles(
           width: 8.px,
@@ -179,10 +179,10 @@ class Hero extends StatelessComponent {
           justifyContent: .center,
           alignItems: .center,
           color: T.muted,
-          backgroundColor: Color('#12172988'),
+          backgroundColor: Color('#1A142088'),
         ),
         css('&:hover').styles(
-          border: .all(color: Color('#7C8CFF88'), width: 1.px),
+          border: .all(color: Color('#FFA96B88'), width: 1.px),
           transform: .translate(y: (-3).px),
           color: T.text,
         ),

@@ -66,7 +66,7 @@ class ContributionsSection extends StatelessComponent {
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
           flexDirection: .column,
           gap: .all(1.rem),
-          backgroundColor: Color('#12172966'),
+          backgroundColor: Color('#1A142066'),
         ),
         css('&::before').styles(
           content: '',
@@ -122,7 +122,7 @@ class ContributionsSection extends StatelessComponent {
       ),
       css('.oss-badge.open').styles(
         color: T.accent2,
-        backgroundColor: Color('#22D3EE1F'),
+        backgroundColor: Color('#FF7A9C1F'),
       ),
       css('.oss-body p').styles(
         margin: .only(bottom: 0.rem),

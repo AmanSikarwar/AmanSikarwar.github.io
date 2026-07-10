@@ -111,7 +111,7 @@ class ProjectsSection extends StatelessComponent {
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
           flexDirection: .column,
           gap: .all(1.2.rem),
-          backgroundColor: Color('#12172966'),
+          backgroundColor: Color('#1A142066'),
         ),
         css('&::before').styles(
           content: '',
@@ -150,7 +150,7 @@ class ProjectsSection extends StatelessComponent {
         fontSize: 24.px,
         fontWeight: .w800,
         raw: {
-          'background': 'linear-gradient(145deg, var(--pa), color-mix(in srgb, var(--pa) 60%, #0B0E1A))',
+          'background': 'linear-gradient(145deg, var(--pa), color-mix(in srgb, var(--pa) 60%, #100C13))',
           'box-shadow': '0 8px 20px color-mix(in srgb, var(--pa) 30%, transparent)',
         },
       ),

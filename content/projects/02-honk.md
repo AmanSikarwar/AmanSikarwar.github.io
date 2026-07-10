@@ -2,7 +2,7 @@
 title: Honk
 tagline: Real-time group coordination, zero spinners
 featured: true
-accent: "#22D3EE"
+accent: "#F5C242"
 icon: images/apps/honk.png
 platforms: [iOS, Android]
 tech: [Flutter, BLoC/Cubit, Supabase Realtime, Firebase FCM, GoRouter]

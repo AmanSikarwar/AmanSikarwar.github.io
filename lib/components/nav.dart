@@ -39,9 +39,9 @@ class Nav extends StatelessComponent {
       css('&').styles(
         position: .fixed(top: 0.px, left: 0.px, right: 0.px),
         zIndex: ZIndex(100),
-        border: .only(bottom: BorderSide.solid(color: Color('#232C4A66'), width: 1.px)),
+        border: .only(bottom: BorderSide.solid(color: Color('#33263D66'), width: 1.px)),
         backdropFilter: .blur(16.px),
-        backgroundColor: Color('#0B0E1AB8'),
+        backgroundColor: Color('#100C13B8'),
       ),
       css('.nav-in').styles(
         display: .flex,
@@ -85,7 +85,7 @@ class Nav extends StatelessComponent {
           fontFamily: T.mono,
           fontSize: 0.84.rem,
           raw: {
-            'background': 'linear-gradient(90deg, #7C8CFF, #22D3EE) no-repeat left bottom',
+            'background': 'linear-gradient(90deg, #FFA96B, #FF7A9C) no-repeat left bottom',
             'background-size': '0% 2px',
             'transition': 'color 0.2s, background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1)',
           },
@@ -103,10 +103,10 @@ class Nav extends StatelessComponent {
           transition: Transition('all', duration: 250.ms, curve: .easeOut),
           fontSize: 0.86.rem,
           fontWeight: .w600,
-          backgroundColor: Color('#121729CC'),
+          backgroundColor: Color('#1A1420CC'),
         ),
         css('&:hover').styles(
-          border: .all(color: Color('#7C8CFF88'), width: 1.px),
+          border: .all(color: Color('#FFA96B88'), width: 1.px),
           backgroundColor: T.surface,
         ),
         css('&:active').styles(
@@ -146,14 +146,14 @@ class Nav extends StatelessComponent {
         ),
         css('a').styles(
           padding: .symmetric(vertical: 0.9.rem, horizontal: 1.5.rem),
-          border: .only(top: BorderSide.solid(color: Color('#232C4A44'), width: 1.px)),
+          border: .only(top: BorderSide.solid(color: Color('#33263D44'), width: 1.px)),
           color: T.muted,
           fontFamily: T.mono,
           fontSize: 0.95.rem,
         ),
         css('a:hover').styles(
           color: T.text,
-          backgroundColor: Color('#12172988'),
+          backgroundColor: Color('#1A142088'),
         ),
       ]),
     ]),

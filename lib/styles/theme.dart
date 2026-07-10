@@ -2,20 +2,20 @@ import 'package:jaspr/dom.dart';
 
 /// Design tokens. Dart constants over CSS variables: type-safe, zero indirection.
 abstract final class T {
-  // Palette — deep indigo ink, layered surfaces, electric indigo→cyan accent.
-  static const bg = Color('#0B0E1A');
-  static const surface = Color('#121729');
-  static const surfaceRaised = Color('#181F36');
-  static const line = Color('#232C4A');
-  static const text = Color('#E8ECF8');
-  static const muted = Color('#8A93AE');
-  static const faint = Color('#5A6380');
-  static const accent = Color('#7C8CFF');
-  static const accent2 = Color('#22D3EE');
+  // Palette — dusk: near-black plum ink, warm surfaces, apricot→rose sunset accent.
+  static const bg = Color('#100C13');
+  static const surface = Color('#1A1420');
+  static const surfaceRaised = Color('#241B2C');
+  static const line = Color('#33263D');
+  static const text = Color('#F3EDE9');
+  static const muted = Color('#B0A3AC');
+  static const faint = Color('#7D6F7C');
+  static const accent = Color('#FFA96B');
+  static const accent2 = Color('#FF7A9C');
   static const amber = Color('#F5A623');
 
   /// Raw CSS gradient reused across components.
-  static const gradient = 'linear-gradient(135deg, #7C8CFF 0%, #22D3EE 100%)';
+  static const gradient = 'linear-gradient(135deg, #FFA96B 0%, #FF7A9C 100%)';
 
   // Type. Body is the native platform stack — the site renders in SF Pro on
   // Apple devices and Roboto on Android, like a native app would.
@@ -95,21 +95,21 @@ List<StyleRule> get globalStyles => [
   css('.btn-primary', [
     css('&').styles(
       color: T.bg,
-      raw: {'background': T.gradient, 'box-shadow': '0 8px 28px #7C8CFF3D'},
+      raw: {'background': T.gradient, 'box-shadow': '0 8px 28px #FFA96B3D'},
     ),
     css('&:hover').styles(
       transform: .translate(y: (-2).px),
-      raw: {'box-shadow': '0 12px 36px #7C8CFF5C'},
+      raw: {'box-shadow': '0 12px 36px #FFA96B5C'},
     ),
   ]),
   css('.btn-ghost', [
     css('&').styles(
       border: .all(color: T.line, width: 1.px),
       color: T.text,
-      backgroundColor: Color('#12172988'),
+      backgroundColor: Color('#1A142088'),
     ),
     css('&:hover').styles(
-      border: .all(color: Color('#7C8CFF88'), width: 1.px),
+      border: .all(color: Color('#FFA96B88'), width: 1.px),
       transform: .translate(y: (-2).px),
       backgroundColor: T.surface,
     ),

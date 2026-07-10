@@ -27,7 +27,7 @@ void main() {
       'og:title': _title,
       'og:description': _description,
       'og:type': 'website',
-      'theme-color': '#0B0E1A',
+      'theme-color': '#100C13',
     },
     head: [
       link(rel: 'icon', type: 'image/svg+xml', href: 'icon.svg'),

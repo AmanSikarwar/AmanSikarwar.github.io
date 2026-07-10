@@ -50,11 +50,11 @@ class SkillsSection extends StatelessComponent {
       css('&').styles(
         padding: .symmetric(vertical: 1.1.rem, horizontal: 0.px),
         border: Border.symmetric(
-          vertical: BorderSide.solid(color: Color('#232C4A66'), width: 1.px),
+          vertical: BorderSide.solid(color: Color('#33263D66'), width: 1.px),
         ),
         overflow: .hidden,
         userSelect: .none,
-        backgroundColor: Color('#0D111F'),
+        backgroundColor: Color('#120D18'),
         raw: {
           'mask-image': 'linear-gradient(90deg, transparent, black 12%, black 88%, transparent)',
           '-webkit-mask-image': 'linear-gradient(90deg, transparent, black 12%, black 88%, transparent)',
@@ -97,10 +97,10 @@ class SkillsSection extends StatelessComponent {
           border: .all(color: T.line, width: 1.px),
           radius: .circular(20.px),
           transition: Transition('all', duration: 300.ms, curve: .easeOut),
-          backgroundColor: Color('#12172966'),
+          backgroundColor: Color('#1A142066'),
         ),
         css('&:hover').styles(
-          border: .all(color: Color('#7C8CFF55'), width: 1.px),
+          border: .all(color: Color('#FFA96B55'), width: 1.px),
           transform: .translate(y: (-4).px),
         ),
         css('h3').styles(
