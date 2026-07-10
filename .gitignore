@@ -6,6 +6,9 @@
 # Conventional directory for build output.
 /build/
 
+# Resumes are local reference material, not site content.
+/Resumes/
+
 # Miscellaneous
 *.class
 *.log
