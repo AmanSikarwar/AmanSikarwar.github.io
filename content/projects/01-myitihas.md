@@ -7,7 +7,7 @@ platforms: [iOS, Android]
 tech: [Flutter, Supabase, Clean Architecture + DDD, Brick, Firebase FCM]
 links:
   playstore: https://play.google.com/store/apps/details?id=com.myitihas.app
-  # appstore: <add App Store link>
+  appstore: https://apps.apple.com/in/app/myitihas/id6760975981
 role: Freelance Lead Developer
 ---
 
