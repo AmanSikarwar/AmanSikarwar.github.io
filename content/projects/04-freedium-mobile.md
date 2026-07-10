@@ -10,5 +10,8 @@ links:
   github: https://github.com/AmanSikarwar/freedium_mobile
 ---
 
-An open-source app to read Medium articles without hitting the paywall.
-Community-driven with active issues and contributions.
+Open-source Android app for reading Medium members-only articles by routing
+them through Freedium mirrors with automatic failover: share straight from any
+browser, clipboard URL detection, offline reading history, font-size control,
+and Material You dynamic theming — community-driven with active issues and
+contributions.

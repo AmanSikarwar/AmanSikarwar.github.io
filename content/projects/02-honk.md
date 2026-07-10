@@ -10,8 +10,10 @@ links:
   github: https://github.com/AmanSikarwar/honk
 ---
 
-Ephemeral group status updates synced live over **Supabase Realtime** — no manual
-refresh, no loading spinners, no perceived latency.
+Create an activity — a "honk" — invite your crew via QR code or deep link, and
+everyone sees each other's live status ("on my way", "already there", or custom
+labels) synced over **Supabase Realtime**: no refresh, no spinners.
 
-QR invite flows, deep links, auto-reset timers, join approvals, and FCM push
-notifications round out a full production feature set.
+Join-approval flows, auto-expiring statuses, Google Sign-In, and FCM push
+driven by Supabase Edge Functions — built on BLoC/Cubit, GoRouter deep links,
+and compile-safe DI with Injectable + GetIt.

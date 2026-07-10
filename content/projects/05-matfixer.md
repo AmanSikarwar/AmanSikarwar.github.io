@@ -9,6 +9,8 @@ links:
   github: https://github.com/AmanSikarwar/matfixer
 ---
 
-A multi-agent AI backend with dual FastAPI services: a LangGraph pipeline with
-parallel RAG agents and Groq/Llama 3 synthesis, plus a Gemini RAG service with
-Sentence Transformer reranking — fronted by a Flutter client.
+Multi-agent AI system that diagnoses and fixes MATLAB code: a LangGraph
+workflow runs parallel RAG agents over ChromaDB knowledge bases (MATLAB docs,
+Stack Overflow) alongside Tavily web search, then a Groq/Llama 3 synthesizer
+merges everything into a root-cause report — plus a citation-grounded Gemini
+RAG backend and a Flutter chat frontend with Firebase-stored feedback.

@@ -66,7 +66,7 @@ class ProjectsSection extends StatelessComponent {
               .text(_buttonLabels[primary.key] ?? 'GET'),
             ]),
         ]),
-        if (featured) div(classes: 'md proj-body', [RawText(proj.bodyHtml)]),
+        div(classes: 'md proj-body', [RawText(proj.bodyHtml)]),
         div(classes: 'proj-foot', [
           div(classes: 'proj-platforms', [
             for (final p in proj.platforms)
