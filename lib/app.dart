@@ -1,6 +1,8 @@
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/server.dart';
 
+import 'components/hero.dart';
+import 'components/nav.dart';
 import 'content/loader.dart';
 
 /// Single-page portfolio. Loads /content at build time and assembles sections.
@@ -12,9 +14,11 @@ class App extends AsyncStatelessComponent {
   Future<Component> build(BuildContext context) async {
     final content = loadContent();
 
-    return main_([
-      h1([.text(content.profile.name)]),
-      p([.text(content.profile.role)]),
+    return .fragment([
+      Nav(email: content.profile.email),
+      main_([
+        Hero(profile: content.profile, projects: content.projects),
+      ]),
     ]);
   }
 }
