@@ -219,14 +219,16 @@ class PhoneFrame extends StatelessComponent {
         ),
       ]),
       css('.screen', [
+        // Black display bezel between frame and screen, like real hardware.
         css('&').styles(
           position: .relative(),
           height: 620.px,
-          radius: .circular(38.px),
+          border: .all(color: Color('#08060A'), width: 4.px),
+          radius: .circular(40.px),
           overflow: .hidden,
           raw: {
             'background': 'var(--ph-screen)',
-            'box-shadow': 'inset 0 0 0 1px #FFFFFF0A',
+            'box-shadow': 'inset 0 0 0 1px #FFFFFF0A, 0 0 0 1px #00000022',
           },
         ),
         // Glass sheen sweeping across the screen every few seconds.
