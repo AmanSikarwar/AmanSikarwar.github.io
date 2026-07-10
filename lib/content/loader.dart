@@ -90,6 +90,7 @@ SiteContent loadContent({String root = 'content'}) {
           links: _stringMap(d.meta['links']),
           role: d.meta['role'] as String?,
           icon: d.meta['icon'] as String?,
+          phone: (d.meta['phone'] as bool?) ?? true,
           bodyHtml: d.bodyHtml,
         );
       }(),

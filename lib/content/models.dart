@@ -67,11 +67,15 @@ class Project {
     required this.bodyHtml,
     this.role,
     this.icon,
+    this.phone = true,
   });
 
   final String title;
   final String tagline;
   final bool featured;
+
+  /// Whether the app may appear on the hero phone's home screen.
+  final bool phone;
   final String accent;
   final List<String> platforms;
   final List<String> tech;

@@ -14,7 +14,7 @@ class PhoneFrame extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final featured = projects.where((x) => x.featured).toList();
+    final featured = projects.where((x) => x.featured && x.phone).toList();
 
     return div(classes: 'phone-scene', [
       div(classes: 'phone-glow', []),
@@ -36,8 +36,10 @@ class PhoneFrame extends StatelessComponent {
                 for (final (i, proj) in featured.indexed)
                   div(
                     classes: 'notif',
-                    // ponytail: cycle timing assumes 3 featured projects
-                    styles: Styles(raw: {'animation-delay': '${i * 4}s'}),
+                    // 4s per notif; cycle length follows the featured count
+                    styles: Styles(raw: {
+                      'animation': 'notif-in ${featured.length * 4}s ease-in-out ${i * 4}s infinite both',
+                    }),
                     [
                       _appIcon(proj, 'notif-icon'),
                       div(classes: 'notif-body', [
@@ -58,7 +60,9 @@ class PhoneFrame extends StatelessComponent {
               div(classes: 'apps', [
                 // ponytail: 3 rows max — more icons would collide with the dock
                 for (final proj in projects
-                    .where((x) => x.platforms.contains('iOS') || x.platforms.contains('Android'))
+                    .where((x) =>
+                        x.phone &&
+                        (x.platforms.contains('iOS') || x.platforms.contains('Android')))
                     .take(9))
                   div(classes: 'app', [
                     _appIcon(proj, 'app-icon'),
@@ -218,7 +222,6 @@ class PhoneFrame extends StatelessComponent {
           alignItems: .center,
           gap: .all(10.px),
           backgroundColor: Color('#242D4CBB'),
-          raw: {'animation': 'notif-in 12s ease-in-out infinite both'},
         ),
         css('.notif-icon').styles(
           display: .flex,
