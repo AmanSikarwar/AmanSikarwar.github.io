@@ -72,6 +72,24 @@ List<StyleRule> get globalStyles => [
   css.media(.screen(maxWidth: 720.px), [
     css('.section').styles(padding: .symmetric(vertical: 4.5.rem, horizontal: 1.25.rem)),
   ]),
+  // Anchored sections stop below the fixed nav.
+  css('section[id], footer[id]').styles(
+    raw: {'scroll-margin-top': '80px'},
+  ),
+  // Scroll reveal. Hidden state only applies once JS confirms it's running,
+  // so no-JS visitors (and search bots) see full content.
+  css('body.js .reveal').styles(
+    opacity: 0,
+    transition: Transition.combine([
+      Transition('opacity', duration: 700.ms, curve: .easeOut),
+      Transition('transform', duration: 700.ms, curve: .cubicBezier(0.22, 1, 0.36, 1)),
+    ]),
+    transform: .translate(y: 28.px),
+  ),
+  css('body.js .reveal.visible').styles(
+    opacity: 1,
+    transform: .translate(y: 0.px),
+  ),
   // Accessibility: kill all motion when the visitor asks for it.
   css.media(.raw('(prefers-reduced-motion: reduce)'), [
     css('*, *::before, *::after').styles(

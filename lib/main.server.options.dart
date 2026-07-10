@@ -9,6 +9,7 @@ import 'package:portfolio/components/about.dart' as _about;
 import 'package:portfolio/components/contact.dart' as _contact;
 import 'package:portfolio/components/experience.dart' as _experience;
 import 'package:portfolio/components/hero.dart' as _hero;
+import 'package:portfolio/components/interactions.dart' as _interactions;
 import 'package:portfolio/components/nav.dart' as _nav;
 import 'package:portfolio/components/phone_frame.dart' as _phone_frame;
 import 'package:portfolio/components/projects.dart' as _projects;
@@ -34,6 +35,11 @@ import 'package:portfolio/styles/theme.dart' as _theme;
 /// ```
 ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
+  clients: {
+    _interactions.Interactions: ClientTarget<_interactions.Interactions>(
+      'interactions',
+    ),
+  },
   styles: () => [
     ..._theme.globalStyles,
     ..._about.About.styles,

@@ -5,6 +5,7 @@ import 'components/about.dart';
 import 'components/contact.dart';
 import 'components/experience.dart';
 import 'components/hero.dart';
+import 'components/interactions.dart';
 import 'components/nav.dart';
 import 'components/projects.dart';
 import 'components/skills.dart';
@@ -29,6 +30,7 @@ class App extends AsyncStatelessComponent {
         SkillsSection(skills: content.skills),
       ]),
       Contact(profile: content.profile),
+      const Interactions(),
     ]);
   }
 }

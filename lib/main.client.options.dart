@@ -6,6 +6,9 @@
 
 import 'package:jaspr/client.dart';
 
+import 'package:portfolio/components/interactions.dart'
+    deferred as _interactions;
+
 /// Default [ClientOptions] for use with your Jaspr project.
 ///
 /// Use this to initialize Jaspr **before** calling [runApp].
@@ -22,4 +25,11 @@ import 'package:jaspr/client.dart';
 ///   runApp(...);
 /// }
 /// ```
-ClientOptions get defaultClientOptions => ClientOptions();
+ClientOptions get defaultClientOptions => ClientOptions(
+  clients: {
+    'interactions': ClientLoader(
+      (p) => _interactions.Interactions(),
+      loader: _interactions.loadLibrary,
+    ),
+  },
+);

@@ -22,6 +22,15 @@ class Nav extends StatelessComponent {
           for (final l in _links) a(classes: 'nav-link', href: '#$l', [.text(l)]),
         ]),
         a(classes: 'nav-cta', href: 'mailto:$email', [.text('Get in touch')]),
+        button(classes: 'nav-burger', attributes: {'aria-label': 'Menu'}, [
+          span([]),
+          span([]),
+          span([]),
+        ]),
+      ]),
+      div(classes: 'nav-menu', [
+        for (final l in _links) a(href: '#$l', [.text(l)]),
+        a(href: 'mailto:$email', [.text('get in touch')]),
       ]),
     ]);
   }
@@ -106,10 +115,70 @@ class Nav extends StatelessComponent {
           transform: .scale(0.96),
         ),
       ]),
+      css('.nav-link.active').styles(
+        color: T.text,
+        raw: {'background-size': '100% 2px'},
+      ),
+      css('.nav-burger', [
+        css('&').styles(
+          display: .none,
+          padding: .all(6.px),
+          border: .none,
+          cursor: .pointer,
+          flexDirection: .column,
+          gap: .all(5.px),
+          backgroundColor: Colors.transparent,
+        ),
+        css('span').styles(
+          display: .block,
+          width: 22.px,
+          height: 2.px,
+          radius: .circular(2.px),
+          transition: Transition('all', duration: 300.ms, curve: .easeOut),
+          backgroundColor: T.text,
+        ),
+      ]),
+      css('.nav-menu', [
+        css('&').styles(
+          display: .flex,
+          maxHeight: .zero,
+          overflow: .hidden,
+          transition: Transition('max-height', duration: 400.ms, curve: .cubicBezier(0.22, 1, 0.36, 1)),
+          flexDirection: .column,
+        ),
+        css('a').styles(
+          padding: .symmetric(vertical: 0.9.rem, horizontal: 1.5.rem),
+          border: .only(top: BorderSide.solid(color: Color('#232C4A44'), width: 1.px)),
+          color: T.muted,
+          fontFamily: T.mono,
+          fontSize: 0.95.rem,
+        ),
+        css('a:hover').styles(
+          color: T.text,
+          backgroundColor: Color('#12172988'),
+        ),
+      ]),
     ]),
+    // Open state (html.menu-open toggled by the Interactions island).
+    css('.menu-open .nav-menu').styles(
+      maxHeight: 20.rem,
+    ),
+    css('.menu-open .nav-burger span:nth-child(1)').styles(
+      transform: .combine([.translate(y: 7.px), .rotate(45.deg)]),
+    ),
+    css('.menu-open .nav-burger span:nth-child(2)').styles(
+      opacity: 0,
+    ),
+    css('.menu-open .nav-burger span:nth-child(3)').styles(
+      transform: .combine([.translate(y: (-7).px), .rotate((-45).deg)]),
+    ),
     css.media(.screen(maxWidth: 860.px), [
       css('.nav .nav-links').styles(display: .none),
       css('.nav .brand-name').styles(display: .none),
+      css('.nav .nav-burger').styles(display: .flex),
+    ]),
+    css.media(.screen(minWidth: 861.px), [
+      css('.nav .nav-menu').styles(display: .none),
     ]),
   ];
 }
