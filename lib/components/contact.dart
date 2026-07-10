@@ -160,10 +160,7 @@ class Contact extends StatelessComponent {
         ),
         css('.cform-send', [
           css('&').styles(
-            border: .none,
-            cursor: .pointer,
             alignSelf: .start,
-            fontFamily: T.body,
           ),
           css('&:disabled').styles(
             opacity: 0.6,

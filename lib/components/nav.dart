@@ -4,9 +4,7 @@ import 'package:jaspr/jaspr.dart';
 import '../styles/theme.dart';
 
 class Nav extends StatelessComponent {
-  const Nav({required this.email, super.key});
-
-  final String email;
+  const Nav({super.key});
 
   static const _links = ['about', 'experience', 'projects', 'skills'];
 
@@ -21,7 +19,7 @@ class Nav extends StatelessComponent {
         nav(classes: 'nav-links', [
           for (final l in _links) a(classes: 'nav-link', href: '#$l', [.text(l)]),
         ]),
-        a(classes: 'nav-cta', href: 'mailto:$email', [.text('Get in touch')]),
+        a(classes: 'nav-cta', href: '#contact', [.text('Get in touch')]),
         button(classes: 'nav-burger', attributes: {'aria-label': 'Menu'}, [
           span([]),
           span([]),
@@ -30,7 +28,7 @@ class Nav extends StatelessComponent {
       ]),
       div(classes: 'nav-menu', [
         for (final l in _links) a(href: '#$l', [.text(l)]),
-        a(href: 'mailto:$email', [.text('get in touch')]),
+        a(href: '#contact', [.text('get in touch')]),
       ]),
     ]);
   }

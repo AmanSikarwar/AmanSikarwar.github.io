@@ -21,7 +21,7 @@ class App extends AsyncStatelessComponent {
     final content = loadContent();
 
     return .fragment([
-      Nav(email: content.profile.email),
+      const Nav(),
       main_([
         Hero(profile: content.profile, projects: content.projects),
         About(profile: content.profile),

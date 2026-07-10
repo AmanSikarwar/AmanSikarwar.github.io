@@ -162,43 +162,6 @@ class Hero extends StatelessComponent {
         alignItems: .center,
         gap: .all(0.9.rem),
       ),
-      css('.btn', [
-        css('&').styles(
-          display: .inlineFlex,
-          padding: .symmetric(vertical: 0.85.rem, horizontal: 1.5.rem),
-          radius: .circular(14.px),
-          transition: Transition('all', duration: 250.ms, curve: .easeOut),
-          alignItems: .center,
-          gap: .all(0.55.rem),
-          fontSize: 0.95.rem,
-          fontWeight: .w600,
-        ),
-        css('&:active').styles(
-          transform: .scale(0.96),
-        ),
-      ]),
-      css('.btn-primary', [
-        css('&').styles(
-          color: T.bg,
-          raw: {'background': T.gradient, 'box-shadow': '0 8px 28px #7C8CFF3D'},
-        ),
-        css('&:hover').styles(
-          transform: .translate(y: (-2).px),
-          raw: {'box-shadow': '0 12px 36px #7C8CFF5C'},
-        ),
-      ]),
-      css('.btn-ghost', [
-        css('&').styles(
-          border: .all(color: T.line, width: 1.px),
-          color: T.text,
-          backgroundColor: Color('#12172988'),
-        ),
-        css('&:hover').styles(
-          border: .all(color: Color('#7C8CFF88'), width: 1.px),
-          transform: .translate(y: (-2).px),
-          backgroundColor: T.surface,
-        ),
-      ]),
       css('.socials').styles(
         display: .flex,
         margin: .only(top: 2.4.rem),

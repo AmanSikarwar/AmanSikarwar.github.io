@@ -72,6 +72,48 @@ List<StyleRule> get globalStyles => [
   css.media(.screen(maxWidth: 720.px), [
     css('.section').styles(padding: .symmetric(vertical: 4.5.rem, horizontal: 1.25.rem)),
   ]),
+  // Shared buttons (hero CTAs, contact form). Top-level so both <a> and
+  // <button> get them anywhere on the page.
+  css('.btn', [
+    css('&').styles(
+      display: .inlineFlex,
+      padding: .symmetric(vertical: 0.85.rem, horizontal: 1.5.rem),
+      border: .none,
+      radius: .circular(14.px),
+      cursor: .pointer,
+      transition: Transition('all', duration: 250.ms, curve: .easeOut),
+      alignItems: .center,
+      gap: .all(0.55.rem),
+      fontFamily: T.body,
+      fontSize: 0.95.rem,
+      fontWeight: .w600,
+    ),
+    css('&:active').styles(
+      transform: .scale(0.96),
+    ),
+  ]),
+  css('.btn-primary', [
+    css('&').styles(
+      color: T.bg,
+      raw: {'background': T.gradient, 'box-shadow': '0 8px 28px #7C8CFF3D'},
+    ),
+    css('&:hover').styles(
+      transform: .translate(y: (-2).px),
+      raw: {'box-shadow': '0 12px 36px #7C8CFF5C'},
+    ),
+  ]),
+  css('.btn-ghost', [
+    css('&').styles(
+      border: .all(color: T.line, width: 1.px),
+      color: T.text,
+      backgroundColor: Color('#12172988'),
+    ),
+    css('&:hover').styles(
+      border: .all(color: Color('#7C8CFF88'), width: 1.px),
+      transform: .translate(y: (-2).px),
+      backgroundColor: T.surface,
+    ),
+  ]),
   // Anchored sections stop below the fixed nav.
   css('section[id], footer[id]').styles(
     raw: {'scroll-margin-top': '80px'},
