@@ -192,7 +192,7 @@ class Hero extends StatelessComponent {
         justifyContent: .center,
       ),
     ]),
-    css.media(.screen(maxWidth: 980.px), [
+    css.media(.screen(maxWidth: 61.25.em), [
       css('.hero .hero-in').styles(
         gridTemplate: GridTemplate(columns: GridTracks([GridTrack(.fr(1))])),
         raw: {'padding-top': '7rem'},

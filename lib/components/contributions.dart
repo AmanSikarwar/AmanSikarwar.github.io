@@ -53,7 +53,7 @@ class ContributionsSection extends StatelessComponent {
       css('.oss-grid').styles(
         display: .grid,
         gap: .all(1.4.rem),
-        raw: {'grid-template-columns': 'repeat(auto-fit, minmax(340px, 1fr))'},
+        raw: {'grid-template-columns': 'repeat(auto-fit, minmax(min(21rem, 100%), 1fr))'},
       ),
       css('.oss-card', [
         css('&').styles(

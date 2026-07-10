@@ -89,7 +89,7 @@ class SkillsSection extends StatelessComponent {
       css('.skill-grid').styles(
         display: .grid,
         gap: .all(1.4.rem),
-        raw: {'grid-template-columns': 'repeat(auto-fit, minmax(300px, 1fr))'},
+        raw: {'grid-template-columns': 'repeat(auto-fit, minmax(min(19rem, 100%), 1fr))'},
       ),
       css('.skill-group', [
         css('&').styles(

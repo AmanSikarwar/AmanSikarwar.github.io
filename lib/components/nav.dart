@@ -50,7 +50,7 @@ class Nav extends StatelessComponent {
       ),
       css('.nav-in').styles(
         display: .flex,
-        maxWidth: T.maxWidth.px,
+        maxWidth: T.maxWidth.rem,
         padding: .symmetric(vertical: 0.8.rem, horizontal: 1.5.rem),
         margin: .symmetric(horizontal: .auto),
         justifyContent: .spaceBetween,
@@ -211,12 +211,12 @@ class Nav extends StatelessComponent {
     css('.menu-open .nav-burger span:nth-child(3)').styles(
       transform: .combine([.translate(y: (-7).px), .rotate((-45).deg)]),
     ),
-    css.media(.screen(maxWidth: 860.px), [
+    css.media(.screen(maxWidth: 53.75.em), [
       css('.nav .nav-links').styles(display: .none),
       css('.nav .brand-name').styles(display: .none),
       css('.nav .nav-burger').styles(display: .flex),
     ]),
-    css.media(.screen(minWidth: 861.px), [
+    css.media(.screen(minWidth: 53.76.em), [
       css('.nav .nav-menu').styles(display: .none),
     ]),
   ];

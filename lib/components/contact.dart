@@ -135,7 +135,7 @@ class Contact extends StatelessComponent {
         css('.cform-row').styles(
           display: .grid,
           gap: .all(0.9.rem),
-          raw: {'grid-template-columns': 'repeat(auto-fit, minmax(220px, 1fr))'},
+          raw: {'grid-template-columns': 'repeat(auto-fit, minmax(min(14rem, 100%), 1fr))'},
         ),
         css('input, textarea').styles(
           width: 100.percent,

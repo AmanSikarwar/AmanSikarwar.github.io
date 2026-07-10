@@ -52,8 +52,8 @@ class Icon extends StatelessComponent {
     return svg(
       classes: 'icon',
       viewBox: '0 0 24 24',
-      width: size.px,
-      height: size.px,
+      width: (size / 16).rem,
+      height: (size / 16).rem,
       attributes: {'fill': 'currentColor', 'aria-hidden': 'true'},
       [path(d: _paths[name]!, [])],
     );

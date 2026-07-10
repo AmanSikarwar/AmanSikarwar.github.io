@@ -29,8 +29,8 @@ abstract final class T {
   ]);
   static const mono = FontFamily.list([FontFamily('JetBrains Mono'), FontFamilies.monospace]);
 
-  // Layout
-  static const maxWidth = 1120;
+  // Layout. rem so the shell scales with the user's font-size setting.
+  static const maxWidth = 70; // rem
 }
 
 // Dusk (default).
@@ -116,11 +116,12 @@ List<StyleRule> get globalStyles => [
   // Shared section shell: consistent rhythm across all sections.
   css('.section').styles(
     width: 100.percent,
-    maxWidth: T.maxWidth.px,
+    maxWidth: T.maxWidth.rem,
     padding: .symmetric(vertical: 7.rem, horizontal: 1.5.rem),
     margin: .symmetric(horizontal: .auto),
   ),
-  css.media(.screen(maxWidth: 720.px), [
+  // Breakpoints in em so they respond to the browser font-size setting.
+  css.media(.screen(maxWidth: 45.em), [
     css('.section').styles(padding: .symmetric(vertical: 4.5.rem, horizontal: 1.25.rem)),
   ]),
   // Shared buttons (hero CTAs, contact form). Top-level so both <a> and
@@ -167,7 +168,7 @@ List<StyleRule> get globalStyles => [
   ]),
   // Anchored sections and project cards stop below the fixed nav.
   css('section[id], footer[id], article[id]').styles(
-    raw: {'scroll-margin-top': '96px'},
+    raw: {'scroll-margin-top': '6rem'},
   ),
   // Scroll reveal. Hidden state only applies once JS confirms it's running,
   // so no-JS visitors (and search bots) see full content.

@@ -38,7 +38,7 @@ class About extends StatelessComponent {
         display: .grid,
         alignItems: .start,
         gap: .all(3.rem),
-        raw: {'grid-template-columns': 'minmax(190px, 230px) 1.4fr 1fr'},
+        raw: {'grid-template-columns': 'minmax(12rem, 14.5rem) 1.4fr 1fr'},
       ),
       css('.about-photo', [
         // App-icon squircle with a gradient ring — the developer as an app.
@@ -124,7 +124,7 @@ class About extends StatelessComponent {
         color: T.accent2,
       ),
     ]),
-    css.media(.screen(maxWidth: 980.px), [
+    css.media(.screen(maxWidth: 61.25.em), [
       css('.about .about-grid').styles(
         gap: .all(2.5.rem),
         raw: {'grid-template-columns': '1fr'},

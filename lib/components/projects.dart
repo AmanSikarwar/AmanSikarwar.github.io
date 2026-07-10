@@ -95,7 +95,7 @@ class ProjectsSection extends StatelessComponent {
       css('.proj-grid').styles(
         display: .grid,
         gap: .all(1.4.rem),
-        raw: {'grid-template-columns': 'repeat(auto-fit, minmax(320px, 1fr))'},
+        raw: {'grid-template-columns': 'repeat(auto-fit, minmax(min(20rem, 100%), 1fr))'},
       ),
       css('.proj-grid-small').styles(
         margin: .only(top: 1.4.rem),

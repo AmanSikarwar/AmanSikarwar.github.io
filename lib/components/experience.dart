@@ -125,7 +125,7 @@ class ExperienceSection extends StatelessComponent {
       border: .all(color: Color('#FF7A9C66'), width: 1.px),
       color: T.text,
     ),
-    css.media(.screen(maxWidth: 720.px), [
+    css.media(.screen(maxWidth: 45.em), [
       css('.xp .xp-line').styles(padding: .only(left: 1.3.rem)),
       css('.xp .xp-dot').styles(position: .absolute(top: 10.px, left: (-1.65).rem)),
       css('.xp .xp-meta').styles(alignItems: .start),
