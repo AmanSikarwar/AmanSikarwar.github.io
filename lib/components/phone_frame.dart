@@ -5,6 +5,37 @@ import '../content/models.dart';
 import '../styles/theme.dart';
 import 'icons.dart';
 
+// Phone hardware palette — dark device by default, silver in light theme.
+const _phoneDark = {
+  '--ph-frame': 'linear-gradient(160deg, #281E31 0%, #191221 45%, #120D19 100%)',
+  '--ph-frame-line': '#41314C',
+  '--ph-screen': 'radial-gradient(120% 90% at 20% 0%, #2A1E33 0%, #150F1C 55%, #0E0A12 100%)',
+  '--ph-widget': '#2E223755',
+  '--ph-widget-line': '#3A2C4644',
+  '--ph-dock': '#2E223766',
+  '--ph-dock-line': '#FFFFFF0F',
+  '--ph-batt': '#F3EDE977',
+  '--ph-homebar': '#F3EDE955',
+  '--ph-dot': '#F3EDE833',
+  '--ph-dot-on': '#F3EDE9AA',
+  '--ph-shadow': '#00000066',
+};
+
+const _phoneLight = {
+  '--ph-frame': 'linear-gradient(160deg, #FBF6F3 0%, #EADFE3 45%, #D9CBD1 100%)',
+  '--ph-frame-line': '#C7B9C0',
+  '--ph-screen': 'radial-gradient(120% 90% at 20% 0%, #FFFBF5 0%, #F6EBEC 55%, #EDE0E4 100%)',
+  '--ph-widget': '#FFFFFF9E',
+  '--ph-widget-line': '#E5D8D0AA',
+  '--ph-dock': '#F8F0F2AA',
+  '--ph-dock-line': '#FFFFFFBB',
+  '--ph-batt': '#2A1F2766',
+  '--ph-homebar': '#2A1F2755',
+  '--ph-dot': '#2A1F2733',
+  '--ph-dot-on': '#2A1F27AA',
+  '--ph-shadow': '#3A241A2E',
+};
+
 /// The hero's signature: a phone whose screen is a live "home screen" of
 /// Aman's apps, with push notifications cycling in. Pure HTML/CSS — no JS.
 class PhoneFrame extends StatelessComponent {
@@ -122,18 +153,15 @@ class PhoneFrame extends StatelessComponent {
       '0%, 55%': Styles(raw: {'transform': 'translateX(-130%) skewX(-18deg)'}),
       '85%, 100%': Styles(raw: {'transform': 'translateX(230%) skewX(-18deg)'}),
     }),
+    // Phone hardware/wallpaper follows the site theme via scoped vars.
+    css(':root[data-theme="light"] .phone-scene').styles(raw: _phoneLight),
+    css.media(.raw('(prefers-color-scheme: light)'), [
+      css(':root:not([data-theme]) .phone-scene').styles(raw: _phoneLight),
+    ]),
     css('.phone-scene', [
-      // The phone is a device: its screen stays dark in both site themes.
       css('&').styles(
         position: .relative(),
-        raw: {
-          'perspective': '1400px',
-          '--bg': '#100C13',
-          '--text': '#F3EDE9',
-          '--muted': '#B0A3AC',
-          '--faint': '#7D6F7C',
-          '--line': '#33263D',
-        },
+        raw: {'perspective': '1400px', ..._phoneDark},
       ),
       css('.app-img').styles(
         width: 100.percent,
@@ -164,12 +192,12 @@ class PhoneFrame extends StatelessComponent {
           position: .relative(),
           width: 300.px,
           padding: .all(10.px),
-          border: .all(color: Color('#41314C'), width: 1.px),
+          border: .all(color: Color('var(--ph-frame-line)'), width: 1.px),
           radius: .circular(48.px),
           raw: {
-            'background': 'linear-gradient(160deg, #281E31 0%, #191221 45%, #120D19 100%)',
+            'background': 'var(--ph-frame)',
             'box-shadow':
-                '0 40px 80px #00000066, inset 0 1px 0 #FFFFFF14, inset 0 -1px 0 #00000055',
+                '0 40px 80px var(--ph-shadow), inset 0 1px 0 #FFFFFF14, inset 0 -1px 0 #00000055',
           },
         ),
         // Volume buttons (left edge; second one via box-shadow) and power (right).
@@ -178,15 +206,15 @@ class PhoneFrame extends StatelessComponent {
           position: .absolute(top: 120.px, left: (-3).px),
           width: 3.px,
           height: 34.px,
-          backgroundColor: Color('#41314C'),
-          raw: {'border-radius': '2px 0 0 2px', 'box-shadow': '0 46px 0 #41314C'},
+          backgroundColor: Color('var(--ph-frame-line)'),
+          raw: {'border-radius': '2px 0 0 2px', 'box-shadow': '0 46px 0 var(--ph-frame-line)'},
         ),
         css('&::after').styles(
           content: '',
           position: .absolute(top: 150.px, right: (-3).px),
           width: 3.px,
           height: 56.px,
-          backgroundColor: Color('#41314C'),
+          backgroundColor: Color('var(--ph-frame-line)'),
           raw: {'border-radius': '0 2px 2px 0'},
         ),
       ]),
@@ -197,8 +225,7 @@ class PhoneFrame extends StatelessComponent {
           radius: .circular(38.px),
           overflow: .hidden,
           raw: {
-            'background':
-                'radial-gradient(120% 90% at 20% 0%, #2A1E33 0%, #150F1C 55%, #0E0A12 100%)',
+            'background': 'var(--ph-screen)',
             'box-shadow': 'inset 0 0 0 1px #FFFFFF0A',
           },
         ),
@@ -280,7 +307,7 @@ class PhoneFrame extends StatelessComponent {
           width: 22.px,
           height: 11.px,
           padding: .all(1.5.px),
-          border: .all(color: Color('#F3EDE977'), width: 1.px),
+          border: .all(color: Color('var(--ph-batt)'), width: 1.px),
           radius: .circular(3.5.px),
         ),
         css('.sb-level').styles(
@@ -303,11 +330,11 @@ class PhoneFrame extends StatelessComponent {
           css('&').styles(
             display: .flex,
             padding: .all(14.px),
-            border: .all(color: Color('#3A2C4644'), width: 1.px),
+            border: .all(color: Color('var(--ph-widget-line)'), width: 1.px),
             radius: .circular(18.px),
             flexDirection: .column,
             gap: .all(2.px),
-            backgroundColor: Color('#2E223755'),
+            backgroundColor: Color('var(--ph-widget)'),
           ),
           css('strong').styles(
             fontFamily: T.display,
@@ -391,7 +418,7 @@ class PhoneFrame extends StatelessComponent {
           height: 50.px,
           radius: .circular(14.px),
           overflow: .hidden,
-          shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('#00000055')),
+          shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('var(--shadow)')),
           transition: Transition('transform', duration: 200.ms, curve: .easeOut),
           justifyContent: .center,
           alignItems: .center,
@@ -420,21 +447,21 @@ class PhoneFrame extends StatelessComponent {
           width: 6.px,
           height: 6.px,
           radius: .circular(50.percent),
-          backgroundColor: Color('#F3EDE933'),
+          backgroundColor: Color('var(--ph-dot)'),
         ),
         css('span.on').styles(
-          backgroundColor: Color('#F3EDE9AA'),
+          backgroundColor: Color('var(--ph-dot-on)'),
         ),
       ]),
       css('.dock').styles(
         display: .flex,
         position: .absolute(bottom: 22.px, left: 16.px, right: 16.px),
         padding: .all(10.px),
-        border: .all(color: Color('#FFFFFF0F'), width: 1.px),
+        border: .all(color: Color('var(--ph-dock-line)'), width: 1.px),
         radius: .circular(24.px),
         backdropFilter: .blur(14.px),
         justifyContent: .spaceAround,
-        backgroundColor: Color('#2E223766'),
+        backgroundColor: Color('var(--ph-dock)'),
       ),
       css('.dock-app').styles(
         display: .flex,
@@ -442,7 +469,7 @@ class PhoneFrame extends StatelessComponent {
         height: 46.px,
         radius: .circular(13.px),
         overflow: .hidden,
-        shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('#00000055')),
+        shadow: BoxShadow(offsetX: 0.px, offsetY: 6.px, blur: 14.px, color: Color('var(--shadow)')),
         justifyContent: .center,
         alignItems: .center,
         color: Color('#100C13'),
@@ -455,7 +482,7 @@ class PhoneFrame extends StatelessComponent {
         height: 4.px,
         radius: .circular(2.px),
         transform: .translate(x: (-50).percent),
-        backgroundColor: Color('#F3EDE955'),
+        backgroundColor: Color('var(--ph-homebar)'),
       ),
     ]),
     css.media(.screen(maxWidth: 980.px), [
