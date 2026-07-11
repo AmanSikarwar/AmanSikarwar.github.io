@@ -355,7 +355,7 @@ class PhoneFrame extends StatelessComponent {
             color: T.muted,
             fontSize: 0.625.rem,
             lineHeight: 1.4.em,
-            raw: {'display': '-webkit-box', '-webkit-line-clamp': '2', '-webkit-box-orient': 'vertical'},
+            raw: {'display': '-webkit-box', '-webkit-line-clamp': '3', '-webkit-box-orient': 'vertical'},
           ),
         ]),
         css('.widget-wide', [
@@ -488,10 +488,18 @@ class PhoneFrame extends StatelessComponent {
         backgroundColor: Color('var(--ph-homebar)'),
       ),
     ]),
-    css.media(.screen(maxWidth: 61.25.em), [
-      css('.phone-scene .phone-body').styles(width: 16.875.rem),
-      css('.phone-scene .screen').styles(height: 35.5.rem),
-      css('.phone-scene .widgets').styles(margin: .only(top: 1.25.rem)),
+    // The phone keeps its full proportions on mobile. When the viewport gets
+    // narrower than the 18.75rem frame (tiny screens or large font settings),
+    // uniform zoom steps shrink the whole mockup so it always fits.
+    // ponytail: stepped zoom, swap for zoom: calc(vw/rem) once that's baseline.
+    css.media(.screen(maxWidth: 21.25.em), [
+      css('.phone-scene .phone-float').styles(raw: {'zoom': '0.85'}),
+    ]),
+    css.media(.screen(maxWidth: 18.em), [
+      css('.phone-scene .phone-float').styles(raw: {'zoom': '0.7'}),
+    ]),
+    css.media(.screen(maxWidth: 15.em), [
+      css('.phone-scene .phone-float').styles(raw: {'zoom': '0.55'}),
     ]),
   ];
 }

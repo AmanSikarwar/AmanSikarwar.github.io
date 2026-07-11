@@ -108,6 +108,7 @@ class Nav extends StatelessComponent {
           transition: Transition('all', duration: 250.ms, curve: .easeOut),
           fontSize: 0.86.rem,
           fontWeight: .w600,
+          whiteSpace: .noWrap,
           backgroundColor: Color('var(--glass-strong)'),
         ),
         css('&:hover').styles(
