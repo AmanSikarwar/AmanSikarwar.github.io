@@ -48,7 +48,7 @@ class ProjectsSection extends StatelessComponent {
 
     return article(
       id: proj.slug,
-      classes: 'proj reveal${featured ? '' : ' proj-small'}',
+      classes: 'proj reveal glow${featured ? '' : ' proj-small'}',
       styles: Styles(raw: {'--pa': proj.accent}),
       [
         div(classes: 'proj-top', [

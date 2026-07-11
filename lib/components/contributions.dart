@@ -25,7 +25,7 @@ class ContributionsSection extends StatelessComponent {
     final prNumber = c.pr.split('/').last;
     final repo = c.pr.split('/pull/').first;
 
-    return article(classes: 'oss-card reveal', styles: Styles(raw: {'--pa': c.accent}), [
+    return article(classes: 'oss-card reveal glow', styles: Styles(raw: {'--pa': c.accent}), [
       div(classes: 'oss-top', [
         div(classes: 'oss-id', [
           h3([a(href: repo, target: .blank, [.text(c.project)])]),

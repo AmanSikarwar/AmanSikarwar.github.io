@@ -69,6 +69,22 @@ class PhoneFrame extends StatelessComponent {
               div(classes: 'wall-blob wall-a', []),
               div(classes: 'wall-blob wall-b', []),
               div(classes: 'island', []),
+              // Push notifications from real apps drop in and cycle, CSS-only.
+              div(classes: 'notifs', attributes: {'aria-hidden': 'true'}, [
+                for (final (i, proj) in mobile.take(3).indexed)
+                  div(
+                    classes: 'notif',
+                    styles: Styles(raw: {'animation-delay': '${3 + i * 6}s'}),
+                    [
+                      _appIcon(proj, 'notif-icon'),
+                      div(classes: 'notif-copy', [
+                        span(classes: 'notif-app', [.text(proj.title)]),
+                        span(classes: 'notif-msg', [.text(proj.tagline)]),
+                      ]),
+                      span(classes: 'notif-time', [.text('now')]),
+                    ],
+                  ),
+              ]),
               div(classes: 'statusbar', [
                 span(classes: 'sb-time', [.text('9:41')]),
                 span(classes: 'sb-right', [
@@ -148,6 +164,11 @@ class PhoneFrame extends StatelessComponent {
     css.keyframes('wall-drift', {
       '0%, 100%': Styles(transform: .combine([.translate(x: 0.rem, y: 0.rem), .scale(1)])),
       '50%': Styles(transform: .combine([.translate(x: 1.625.rem, y: (-1.25).rem), .scale(1.15)])),
+    }),
+    // One banner at a time on an 18s loop: drop in, hold ~4s, lift out.
+    css.keyframes('notif-cycle', {
+      '0%, 30%, 100%': Styles(opacity: 0, transform: .combine([.translate(y: (-120).percent), .scale(0.92)])),
+      '2.5%, 26%': Styles(opacity: 1, transform: .combine([.translate(y: 0.percent), .scale(1)])),
     }),
     css.keyframes('sheen', {
       '0%, 55%': Styles(raw: {'transform': 'translateX(-130%) skewX(-18deg)'}),
@@ -279,6 +300,65 @@ class PhoneFrame extends StatelessComponent {
         transform: .translate(x: (-50).percent),
         backgroundColor: Color('#070409'),
       ),
+      css('.notifs', [
+        css('&').styles(
+          position: .absolute(top: 3.25.rem, left: 0.75.rem, right: 0.75.rem),
+          zIndex: ZIndex(5),
+          pointerEvents: .none,
+        ),
+        // Banners share one slot; the cycle keyframe staggers who's visible.
+        css('.notif').styles(
+          display: .flex,
+          position: .absolute(left: 0.rem, right: 0.rem),
+          padding: .symmetric(vertical: 0.6.rem, horizontal: 0.7.rem),
+          border: .all(color: Color('var(--ph-widget-line)'), width: 1.px),
+          radius: .circular(1.1.rem),
+          opacity: 0,
+          shadow: BoxShadow(offsetX: 0.rem, offsetY: 0.75.rem, blur: 1.75.rem, color: Color('var(--ph-shadow)')),
+          backdropFilter: .blur(0.875.rem),
+          transform: .combine([.translate(y: (-120).percent), .scale(0.92)]),
+          alignItems: .center,
+          gap: .all(0.55.rem),
+          backgroundColor: Color('var(--glass-strong)'),
+          raw: {'animation': 'notif-cycle 18s cubic-bezier(0.22, 1, 0.36, 1) infinite'},
+        ),
+        css('.notif-icon').styles(
+          display: .flex,
+          width: 2.rem,
+          height: 2.rem,
+          radius: .circular(0.5625.rem),
+          overflow: .hidden,
+          justifyContent: .center,
+          alignItems: .center,
+          flex: .none,
+          color: Color('#100C13'),
+          fontSize: 1.rem,
+          fontWeight: .w800,
+        ),
+        css('.notif-copy').styles(
+          display: .flex,
+          minWidth: 0.rem,
+          flexDirection: .column,
+          flex: .grow(1),
+        ),
+        css('.notif-app').styles(
+          color: T.text,
+          fontSize: 0.6875.rem,
+          fontWeight: .w600,
+        ),
+        css('.notif-msg').styles(
+          overflow: .hidden,
+          color: T.muted,
+          fontSize: 0.6875.rem,
+          textOverflow: .ellipsis,
+          whiteSpace: .noWrap,
+        ),
+        css('.notif-time').styles(
+          alignSelf: .start,
+          color: T.faint,
+          fontSize: 0.625.rem,
+        ),
+      ]),
       css('.statusbar', [
         css('&').styles(
           display: .flex,

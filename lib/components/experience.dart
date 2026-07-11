@@ -18,7 +18,7 @@ class ExperienceSection extends StatelessComponent {
         for (final r in roles)
           div(classes: 'xp-item reveal', [
             div(classes: 'xp-dot', []),
-            div(classes: 'xp-card', [
+            div(classes: 'xp-card glow', [
               div(classes: 'xp-top', [
                 div([
                   h3([.text(r.role)]),

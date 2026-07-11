@@ -166,6 +166,40 @@ List<StyleRule> get globalStyles => [
       backgroundColor: T.surface,
     ),
   ]),
+  // Pointer spotlight on cards: a soft accent glow tracks the cursor
+  // (--mx/--my set by the Interactions island; fine pointers only).
+  css('.glow', [
+    css('&').styles(position: .relative()),
+    css('&::after').styles(
+      content: '',
+      position: .absolute(top: 0.px, left: 0.px, right: 0.px, bottom: 0.px),
+      opacity: 0,
+      transition: Transition('opacity', duration: 300.ms),
+      pointerEvents: .none,
+      raw: {
+        'border-radius': 'inherit',
+        'background':
+            'radial-gradient(20rem circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--pa, var(--accent)) 10%, transparent), transparent 65%)',
+      },
+    ),
+  ]),
+  css.media(.raw('(hover: hover) and (pointer: fine)'), [
+    css('.glow:hover::after').styles(opacity: 1),
+  ]),
+  // Theme switch: swap colors instantly (no per-element transition soup);
+  // the Interactions island wraps the swap in a View Transition that reveals
+  // the new theme in a circle growing from the toggle button.
+  css('[data-theme-switching] *, [data-theme-switching] *::before, [data-theme-switching] *::after').styles(
+    raw: {'transition': 'none !important'},
+  ),
+  css.keyframes('vt-reveal', {
+    'from': Styles(raw: {'clip-path': 'circle(0% at var(--vt-x, 95%) var(--vt-y, 2rem))'}),
+    'to': Styles(raw: {'clip-path': 'circle(150% at var(--vt-x, 95%) var(--vt-y, 2rem))'}),
+  }),
+  css('::view-transition-old(root)').styles(raw: {'animation': 'none'}),
+  css('::view-transition-new(root)').styles(
+    raw: {'animation': 'vt-reveal 450ms cubic-bezier(0.22, 1, 0.36, 1)'},
+  ),
   // Anchored sections and project cards stop below the fixed nav.
   css('section[id], footer[id], article[id]').styles(
     raw: {'scroll-margin-top': '6rem'},
@@ -194,5 +228,7 @@ List<StyleRule> get globalStyles => [
         'scroll-behavior': 'auto',
       },
     ),
+    // The universal selector doesn't reach view-transition pseudos.
+    css('::view-transition-new(root)').styles(raw: {'animation': 'none'}),
   ]),
 ];

@@ -29,7 +29,7 @@ class SkillsSection extends StatelessComponent {
         const SectionHeader(eyebrow: 'skills', title: 'The toolbox'),
         div(classes: 'skill-grid', [
           for (final g in skills.groups)
-            div(classes: 'skill-group reveal', [
+            div(classes: 'skill-group reveal glow', [
               h3([.text(g.title)]),
               div(classes: 'skill-chips', [
                 for (final s in g.skills) span(classes: 'chip', [.text(s)]),

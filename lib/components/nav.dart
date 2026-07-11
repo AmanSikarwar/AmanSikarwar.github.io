@@ -35,12 +35,31 @@ class Nav extends StatelessComponent {
         for (final l in _links) a(href: '#$l', [.text(l)]),
         a(href: '#contact', [.text('get in touch')]),
       ]),
+      div(classes: 'nav-progress', []),
     ]);
   }
 
   @css
   static List<StyleRule> get styles => [
+    css.keyframes('nav-progress', {
+      'from': Styles(raw: {'transform': 'scaleX(0)'}),
+      'to': Styles(raw: {'transform': 'scaleX(1)'}),
+    }),
     css('.nav', [
+      // Reading progress along the nav's bottom edge. Scroll-driven CSS only:
+      // browsers without animation-timeline keep the bar at scaleX(0), unseen.
+      css('.nav-progress').styles(
+        position: .absolute(bottom: (-1).px, left: 0.px),
+        width: 100.percent,
+        height: 2.px,
+        raw: {
+          'transform': 'scaleX(0)',
+          'transform-origin': 'left',
+          'background': T.gradient,
+          'animation': 'nav-progress linear both',
+          'animation-timeline': 'scroll()',
+        },
+      ),
       css('&').styles(
         position: .fixed(top: 0.px, left: 0.px, right: 0.px),
         zIndex: ZIndex(100),

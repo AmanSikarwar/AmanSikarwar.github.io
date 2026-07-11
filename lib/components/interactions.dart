@@ -77,7 +77,24 @@ class _InteractionsState extends State<Interactions> {
       });
     }
 
+    // Card spotlight: keep --mx/--my on the hovered card so the glow follows
+    // the cursor. Fine pointers only; touch devices never see it.
+    if (web.window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      final cards = doc.querySelectorAll('.glow');
+      for (var i = 0; i < cards.length; i++) {
+        final card = cards.item(i) as web.HTMLElement;
+        web.EventStreamProviders.mouseMoveEvent.forTarget(card).listen((web.MouseEvent e) {
+          final rect = card.getBoundingClientRect();
+          card.style.setProperty('--mx', '${e.clientX - rect.left}px');
+          card.style.setProperty('--my', '${e.clientY - rect.top}px');
+        });
+      }
+    }
+
     // Theme toggle: explicit choice wins over system preference and persists.
+    // The swap itself is instant (data-theme-switching kills transitions);
+    // where supported, a View Transition reveals the new theme in a circle
+    // growing out of the toggle button.
     final themeBtn = doc.querySelector('.theme-toggle');
     if (themeBtn != null) {
       web.EventStreamProviders.clickEvent.forTarget(themeBtn).listen((_) {
@@ -85,8 +102,26 @@ class _InteractionsState extends State<Interactions> {
         final isLight = stored == 'light' ||
             (stored == null && web.window.matchMedia('(prefers-color-scheme: light)').matches);
         final next = isLight ? 'dark' : 'light';
-        root.setAttribute('data-theme', next);
-        web.window.localStorage.setItem('theme', next);
+
+        final btnRect = themeBtn.getBoundingClientRect();
+        final rootEl = root as web.HTMLElement;
+        rootEl.style.setProperty('--vt-x', '${btnRect.left + btnRect.width / 2}px');
+        rootEl.style.setProperty('--vt-y', '${btnRect.top + btnRect.height / 2}px');
+
+        void apply() {
+          root.setAttribute('data-theme', next);
+          web.window.localStorage.setItem('theme', next);
+        }
+
+        root.setAttribute('data-theme-switching', '');
+        try {
+          doc.startViewTransition(apply.toJS);
+        } catch (_) {
+          apply(); // browser without the View Transitions API
+        }
+        Future<void>.delayed(const Duration(milliseconds: 100), () {
+          root.removeAttribute('data-theme-switching');
+        });
       });
     }
 
